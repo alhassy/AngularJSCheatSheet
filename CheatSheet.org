@@ -919,8 +919,8 @@ Press ~C-c C-c~ on the following incantation to produce a single column portrait
 #+BEGIN_SRC emacs-lisp
 (with-temp-buffer
     (insert
-    "#+EXPORT_FILE_NAME: README.org
-     # HTML: <h1> AngularJSCheatSheet </h1>
+    "#+EXPORT_FILE_NAME: README.md
+     ,#+HTML: <h1> AngularJSCheatSheet </h1>
      ,#+OPTIONS: toc:nil d:nil
      # Toc is displayed below at a strategic position.
 
@@ -929,7 +929,9 @@ Press ~C-c C-c~ on the following incantation to produce a single column portrait
     ,*The listing sheet, as PDF, can be found
      [[file:CheatSheet.pdf][here]]*,
      or as a [[file:CheatSheet_Portrait.pdf][single column portrait]],
-     while below is an unruly html rendition.
+     while below is an unruly html rendition
+     ---there is also a
+     badge:beautiful|HTML_webpage||https://alhassy.github.io/AngularJSCheatSheet (•̀ᴗ•́)و
 
      # Markdown links: [title](target)
 
@@ -946,18 +948,13 @@ Press ~C-c C-c~ on the following incantation to produce a single column portrait
     ;;
     (let ((org-export-use-babel nil))
       (org-mode)
-      ; (org-md-export-to-markdown)
-      ; (package-install 'toc-org)
-      (toc-org-mode)
-      (toc-org-insert-toc)
-      ; (setq org-toc-noexport-regexp ".*:ignore:.*") MA: Doesn't work.
-      ; (delete "TOC" org-export-exclude-tags)
-      (pop org-export-exclude-tags)
-      (org-org-export-to-org)
-      (add-to-list 'org-export-exclude-tags "TOC")
+      (org-md-export-to-markdown)
       )
 )
 #+END_SRC
+
+#+RESULTS: make-readme
+: README.md
 
 Note that the ~blurb~ macro is defined by the user, to provide a terse description of the project.
    - Think the one-line statement at the top of a github repo page.

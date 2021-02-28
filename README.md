@@ -1,11 +1,13 @@
-# AngularJSCheatSheet
+<h1> AngularJSCheatSheet </h1>
 
 A reference for the accessible JS framework that gives HTML: {{Variables}}, Conditionals, Loops, etc!
 
 **The listing sheet, as PDF, can be found
  [here](CheatSheet.pdf)**,
  or as a [single column portrait](CheatSheet_Portrait.pdf),
- while below is an unruly html rendition.
+ while below is an unruly html rendition
+ &#x2014;there is also a
+ <a href="https://alhassy.github.io/AngularJSCheatSheet"><img src="https://img.shields.io/badge/beautiful-HTML_webpage-?logo=nil"></a> (•̀ᴗ•́)و
 
 This reference sheet is built from a
 [CheatSheets with Org-mode](https://github.com/alhassy/CheatSheet)
@@ -25,6 +27,22 @@ system.
 7.  [Single Page Applications (SPA) and `$route`](#Single-Page-Applications-SPA-and-src-emacs-lisp-exports-code-route)
 8.  [Reads](#Reads)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Hello-World"></a>
 
 # Hello World
 
@@ -77,6 +95,8 @@ page.
 *Warning!* “AngularJS” (controllers and `$scope`) has been completely rewritten as
 [“Angular”](https://angular-templates.io/tutorials/about/learn-angular-from-scratch-step-by-step#building-an-angular-crud-example-project-step-by-step) (components focused) in an effort to simplify it.
 
+
+<a id="AngularJS-makes-HTML-into-a-language-with-variables-and-looping"></a>
 
 # [AngularJS makes HTML into a language with variables and control flow](https://www.guru99.com/angularjs-expressions.html)
 
@@ -172,7 +192,8 @@ and that method is the one we *can* call in moustaches (within our div).  See [h
 for the docs on the permissible expressions.
 
 Moreover, AngularJS provides HTML directives that “already exist” but *know how
-evaluate {{moustache}} expressions*; e.g., `<a href="#!/go/{{expr}}">Go!</a>` would *not* evaluate `expr`, for that we use `ng-href`.
+evaluate {{moustache}} expressions*; e.g., `<a
+href="#!/go/{{expr}}">Go!</a>` would *not* evaluate `expr`, for that we use `ng-href`.
 
 <div class="org-center">
 <p>
@@ -180,6 +201,8 @@ evaluate {{moustache}} expressions*; e.g., `<a href="#!/go/{{expr}}">Go!</a>` wo
 </p>
 </div>
 
+
+<a id="Filters"></a>
 
 # [Filters](https://www.guru99.com/angularjs-filter.html)
 
@@ -216,14 +239,19 @@ operator) and <directives>.  We can also define our own filters:
     </html>
 
 
+<a id="Apps"></a>
+
 # Apps
 
 We may have multiple AngularJS apps for the same HTML file, and each app is
-declared with the syntax `var app = angular.module(appName,dependencies);`.  One then furnishes each
+declared with the syntax `var app =
+  angular.module(appName,dependencies);`.  One then furnishes each
 `app` with its own controllers, filters,
 directives, etc &#x2014;e.g., `app.filter(..., ...)`  as shown
 above.
 
+
+<a id="Directives"></a>
 
 # Directives &#x2014;Essentially “HTML Functions”
 
@@ -284,7 +312,8 @@ We can also define our own [custom directives](https://www.guru99.com/angularjs-
 directive is done with `kebab-case` (as in `ng-speak`). Moreover, custom directive names must start with
 `ng`.
 
-Notice that there are two ways to use a directive: Both of `<div ng-speak> ... </div>` and `<ng-speak> ... </ng-speak>` tell AngularJS to instantiate a custom directive; i.e., to
+Notice that there are two ways to use a directive: Both of `<div ng-speak> ... </div>` and `<ng-speak>
+... </ng-speak>` tell AngularJS to instantiate a custom directive; i.e., to
 expand its template which is managed by an instance of the specified controller.
 
 The `template` may `{{evaluate}}` any data defined in
@@ -320,6 +349,8 @@ into `controller`s.
 
 [Components](https://docs.angularjs.org/tutorial/step_03) are a [‘saner’](https://docs.angularjs.org/guide/component) form of directives that aim to narrow scope.
 
+
+<a id="MVC"></a>
 
 # The MVC Design Pattern &#x2014;Model, View, Controller
 
@@ -383,6 +414,8 @@ behaviour. That is, the view can execute any computation, and access any data,
 that is bound to `$scope` &#x2014;as such, an app
 generally has multiple controllers, each for a particular part of the view.
 
+
+<a id="How-do-we-split-up-an-app"></a>
 
 ## *How do we split up an app?*
 
@@ -483,6 +516,8 @@ The above is a bit messy, and so we split it up further into two files: The
 It may be useful to know that within a controller, `$eval` acts like `{{...}}`; e.g., instead of `$scope.a + $scope.b` we may write `$scope.$eval('a + b')`.
 
 
+<a id="Number-Guessing-Game"></a>
+
 ## Number Guessing Game
 
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
@@ -506,6 +541,41 @@ Finally, give the user an “I give up” button which shows the answer
 
 Hint: This can be done in under 40 lines, in a single file.
 
+    <!doctype html>
+    <html ng-app="myGuessingApp">
+      <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"> </script>
+      </head>
+      <body ng-controller="PromptController">
+        <button ng-click="newGame()" ng-init="newGame()"> New game </button>
+        <input type=number ng-model="user.guess" placeholder="{{prompt}}">
+        <button ng-init='quit = false' ng-click='quit = !quit'> Quit </button>
+        <div ng-if='quit'> The target number is {{goal}} </div>
+        <div ng-if="user.guess"> {{reply(user)}} </div>
+        <script>
+          angular.module("myGuessingApp", [])
+           .controller("PromptController",
+             function($scope){
+               $scope.prompt = "Guess a number (0..100)"
+               // New goal and clear user guesses
+               $scope.newGame = function (){
+                 $scope.goal = Math.floor(Math.random()*100)
+                 $scope.user.guess = '' }
+               // Reply to user guesses
+               $scope.reply = function(user){
+                 if (user.guess < $scope.goal)
+                    return  "Too low!";
+                 if (user.guess > $scope.goal)
+                    return  "Too high!";
+                 if (user.guess == $scope.goal)
+                    return  "You got it!";
+          }})
+        </script>
+      </body>
+    </html>
+
+
+<a id="Single-Page-Applications-SPA-and-src-emacs-lisp-exports-code-route"></a>
 
 # Single Page Applications (SPA) and `$route`
 
@@ -686,6 +756,8 @@ via an HTTP server.  One solution is to run your own [web server](https://stacko
 4.  Then open <http://localhost:8080/index.html>
 
 
+
+<a id="Reads"></a>
 
 # Reads
 
