@@ -1,0 +1,1337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-02-28 Sun 07:45 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AngularJS CheatSheet</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="[[https://alhassy.github.io/][Musa Al-hassy]]" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<style>  summary:hover {background:pink;} </style>
+        <style>
+        /* From: https://endlessparentheses.com/public/css/endless.css */
+        /* See also: https://meta.superuser.com/questions/4788/css-for-the-new-kbd-style */
+        kbd
+        {
+          -moz-border-radius: 6px;
+          -moz-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
+          -webkit-border-radius: 6px;
+          -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
+          background-color: #f7f7f7;
+          border: 1px solid #ccc;
+          border-radius: 6px;
+          box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
+          color: #333;
+          display: inline-block;
+          font-family: 'Droid Sans Mono', monospace;
+          font-size: 80%;
+          font-weight: normal;
+          line-height: inherit;
+          margin: 0 .1em;
+          padding: .08em .4em;
+          text-shadow: 0 1px 0 #fff;
+          word-spacing: -4px;
+
+          box-shadow: 2px 2px 2px #222; /* MA: An extra I've added. */
+        }
+        </style>
+        <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/tooltipster.bundle.min.css"/>
+
+        <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
+
+        <script type="text/javascript">
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape('%3Cscript src="https://code.jquery.com/jquery-1.10.0.min.js"%3E%3C/script%3E'));
+            }
+        </script>
+
+         <script type="text/javascript"            src="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/js/tooltipster.bundle.min.js"></script>
+
+          <script>
+                 $(document).ready(function() {
+                     $('.tooltip').tooltipster({
+                         theme: 'tooltipster-punk',
+                         contentAsHTML: true,
+                         animation: 'grow',
+                         delay: [100,500],
+                         // trigger: 'click'
+                         trigger: 'custom',
+                         triggerOpen: {
+                             mouseenter: true
+                         },
+                         triggerClose: {
+                             originClick: true,
+                             scroll: true
+                         }
+         });
+                 });
+             </script>
+
+        <style>
+           abbr {color: red;}
+
+           .tooltip { border-bottom: 1px dotted #000;
+                      color:red;
+                      text-decoration: none;}
+        </style>
+<script type="text/javascript">
+// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
+<!--/*--><![CDATA[/*><!--*/
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">AngularJS CheatSheet</h1>
+<p>
+<div class="header">
+  <a href="https://alhassy.github.io/" class="logo">Life & Computing Science</a>
+  <br>
+    <a href="https://alhassy.github.io/AlBasmala">AlBasmala</a>
+    <a href="https://alhassy.github.io/archive">Archive</a>
+    <a href="https://alhassy.github.io/tags">Tags</a>
+    <a href="https://alhassy.github.io/rss.xml">RSS</a>
+    <a href="https://alhassy.github.io/about">About</a>
+</div><style>  summary:hover {background:pink;} </style>
+        <style>
+        /* From: https://endlessparentheses.com/public/css/endless.css */
+        /* See also: https://meta.superuser.com/questions/4788/css-for-the-new-kbd-style */
+        kbd
+        {
+          -moz-border-radius: 6px;
+          -moz-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
+          -webkit-border-radius: 6px;
+          -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
+          background-color: #f7f7f7;
+          border: 1px solid #ccc;
+          border-radius: 6px;
+          box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
+          color: #333;
+          display: inline-block;
+          font-family: 'Droid Sans Mono', monospace;
+          font-size: 80%;
+          font-weight: normal;
+          line-height: inherit;
+          margin: 0 .1em;
+          padding: .08em .4em;
+          text-shadow: 0 1px 0 #fff;
+          word-spacing: -4px;
+
+          box-shadow: 2px 2px 2px #222; /* MA: An extra I've added. */
+        }
+        </style>
+        <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/tooltipster.bundle.min.css"/>
+
+        <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
+
+        <script type="text/javascript">
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape('%3Cscript src="https://code.jquery.com/jquery-1.10.0.min.js"%3E%3C/script%3E'));
+            }
+        </script>
+
+         <script type="text/javascript"            src="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/js/tooltipster.bundle.min.js"></script>
+
+          <script>
+                 $(document).ready(function() {
+                     $('.tooltip').tooltipster({
+                         theme: 'tooltipster-punk',
+                         contentAsHTML: true,
+                         animation: 'grow',
+                         delay: [100,500],
+                         // trigger: 'click'
+                         trigger: 'custom',
+                         triggerOpen: {
+                             mouseenter: true
+                         },
+                         triggerClose: {
+                             originClick: true,
+                             scroll: true
+                         }
+         });
+                 });
+             </script>
+
+        <style>
+           abbr {color: red;}
+
+           .tooltip { border-bottom: 1px dotted #000;
+                      color:red;
+                      text-decoration: none;}
+        </style>
+        <meta name="author" content="Musa Al-hassy">
+    <meta name="referrer" content="no-referrer"><link href="usual-org-front-matter.css" rel="stylesheet" type="text/css" /><link href="org-notes-style.css" rel="stylesheet" type="text/css" /><link href="floating-toc.css" rel="stylesheet" type="text/css" /><link href="blog-banner.css" rel="stylesheet" type="text/css" /><link rel="icon" href="images/favicon.png"><script type="text/javascript">
+   /*
+   @licstart  The following is the entire license notice for the
+   JavaScript code in this tag.
+
+   Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+   The JavaScript code in this tag is free software: you can
+   redistribute it and/or modify it under the terms of the GNU
+   General Public License (GNU GPL) as published by the Free Software
+   Foundation, either version 3 of the License, or (at your option)
+   any later version.  The code is distributed WITHOUT ANY WARRANTY;
+   without even the implied warranty of MERCHANTABILITY or FITNESS
+   FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+   As additional permission under GNU GPL version 3 section 7, you
+   may distribute non-source (e.g., minimized or compacted) forms of
+   that code without the copy of the GNU GPL normally required by
+   section 4, provided you include this license notice and a URL
+   through which recipients can access the Corresponding Source.
+
+
+   @licend  The above is the entire license notice
+   for the JavaScript code in this tag.
+   */
+   <!--/*--><![CDATA[/*><!--*/
+    function CodeHighlightOn(elem, id)
+    {
+      var target = document.getElementById(id);
+      if(null != target) {
+        elem.cacheClassElem = elem.className;
+        elem.cacheClassTarget = target.className;
+        target.className = "code-highlighted";
+        elem.className   = "code-highlighted";
+      }
+    }
+    function CodeHighlightOff(elem, id)
+    {
+      var target = document.getElementById(id);
+      if(elem.cacheClassElem)
+        elem.className = elem.cacheClassElem;
+      if(elem.cacheClassTarget)
+        target.className = elem.cacheClassTarget;
+    }
+   /*]]>*///-->
+   </script><link href="https://alhassy.github.io/org-notes-style.css" rel="stylesheet" type="text/css" /><link href="https://alhassy.github.io/floating-toc.css" rel="stylesheet" type="text/css" /><link href="https://alhassy.github.io/blog-banner.css" rel="stylesheet" type="text/css" /><br><center><h1>AngularJS CheatSheet</h1></center>
+</p>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#Hello-World">1. Hello World</a></li>
+<li><a href="#AngularJS-makes-HTML-into-a-language-with-variables-and-looping">2. AngularJS makes HTML into a language with variables and control flow</a></li>
+<li><a href="#Filters">3. Filters</a></li>
+<li><a href="#Apps">4. Apps</a></li>
+<li><a href="#Directives">5. Directives &#x2014;Essentially “HTML Functions”</a></li>
+<li><a href="#MVC">6. The MVC Design Pattern &#x2014;Model, View, Controller</a>
+<ul>
+<li><a href="#How-do-we-split-up-an-app">6.1. <i>How do we split up an app?</i></a></li>
+<li><a href="#Number-Guessing-Game">6.2. Number Guessing Game</a></li>
+</ul>
+</li>
+<li><a href="#Single-Page-Applications-SPA-and-src-emacs-lisp-exports-code-route">7. Single Page Applications (SPA) and <code class="src src-emacs-lisp">$route</code></a></li>
+<li><a href="#Reads">8. Reads</a></li>
+</ul>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="outline-container-Hello-World" class="outline-2">
+<h2 id="Hello-World"><span class="section-number-2">1</span> Hello World</h2>
+<div class="outline-text-2" id="text-Hello-World">
+<p>
+AngularJS enhances HTML by giving it a <i>dynamic</i> layer; i.e., raw HTML just
+displays things, but with AngularJS we can have parts shown according to, say,
+input boxes and variables (which raw HTML does not have).
+[See the <a href="https://alhassy.github.io/JavaScriptCheatSheet/CheatSheet.pdf">JavaScriptCheatSheet</a> PDF.]
+</p>
+
+<p>
+<i>An example is worth a thousand words!</i>
+Here's one from the <a href="https://angularjs.org/">docs</a>:
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #3a81c3; font-weight: bold;">!doctype</span> html&gt;
+&lt;<span style="color: #6c3163; font-weight: bold;">html</span> ng-app&gt; <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">&#10216;0&#10217; AngularJS is active for the entire tree </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+  &lt;<span style="color: #6c3163; font-weight: bold;">head</span>&gt;
+    <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">&#10216;1&#10217; Actually load AngularJS </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+    &lt;<span style="color: #6c3163; font-weight: bold;">script</span>
+<span style="color: #715ab1;">src</span>=<span style="color: #2d9574;">"https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"</span>&gt;
+    &lt;/<span style="color: #6c3163; font-weight: bold;">script</span>&gt;
+  &lt;/<span style="color: #6c3163; font-weight: bold;">head</span>&gt;
+  &lt;<span style="color: #6c3163; font-weight: bold;">body</span>&gt;
+    &lt;<span style="color: #6c3163; font-weight: bold;">div</span>&gt;
+      &lt;<span style="color: #6c3163; font-weight: bold;">label</span>&gt;Name:&lt;/<span style="color: #6c3163; font-weight: bold;">label</span>&gt;
+      <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">&#10216;2&#10217; The *value* of this text box </span><span style="color: #2aa1ae; background-color: #ecf3ec; text-decoration: underline;">is named</span><span style="color: #2aa1ae; background-color: #ecf3ec;"> &#8220;yourName&#8221; </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+      &lt;<span style="color: #6c3163; font-weight: bold;">input</span> <span style="color: #715ab1;">type</span>=<span style="color: #2d9574;">"text"</span>
+             <span style="color: #715ab1;">ng-model</span>=<span style="color: #2d9574;">"yourName"</span>
+             <span style="color: #715ab1;">placeholder</span>=<span style="color: #2d9574;">"Enter a name here"</span>&gt;
+      &lt;<span style="color: #6c3163; font-weight: bold;">hr</span>&gt;
+      <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">&#10216;3&#10217; Actually use the &#8220;yourName&#8221; value here,</span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;">           *whenever* it </span><span style="color: #2aa1ae; background-color: #ecf3ec; text-decoration: underline;">is updated</span><span style="color: #2aa1ae; background-color: #ecf3ec;">! </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+      &lt;<span style="color: #6c3163; font-weight: bold;">h1</span>&gt;<span style="font-weight: bold; text-decoration: underline;">Hello {{yourName.toUpperCase()}}!</span>&lt;/<span style="color: #6c3163; font-weight: bold;">h1</span>&gt;
+    &lt;/<span style="color: #6c3163; font-weight: bold;">div</span>&gt;
+  &lt;/<span style="color: #6c3163; font-weight: bold;">body</span>&gt;
+&lt;/<span style="color: #6c3163; font-weight: bold;">html</span>&gt;
+</pre>
+</div>
+
+<p>
+This is a <i>self-contained</i> <b>interactive</b> program: Whenever the input box's value is
+changed then so is the greeting header “hello &#x2026;!”.
+</p>
+
+<p>
+Bindings like <code>{{this}}</code> are known as <i><a href="https://github.com/janl/mustache.js#templates">mustache</a> tags, which tell AngularJS that it
+should evaluate an <a href="https://docs.angularjs.org/guide/expression">expression</a></i> and insert the result into the DOM in place of
+the binding. Rather than a one-time insert, a binding will result in efficient
+continuous updates whenever the result of the expression evaluation changes.
+</p>
+
+<p>
+<i>Exercise!</i> Using <code>&lt;input type="number" ...&gt;</code>, make a super simple site with two
+input boxes for numbers and a header that shows their sum whenever a user inputs
+values.  <a href="https://www.guru99.com/angularjs-directive.html#4">(Solution)</a>
+</p>
+
+<p>
+<i>Exercise!</i> Get a twitter handle from the user and show a link to that twitter
+page.
+</p>
+
+<p>
+<i>Warning!</i> “AngularJS” (controllers and <code>$scope</code>) has been completely rewritten as
+<a href="https://angular-templates.io/tutorials/about/learn-angular-from-scratch-step-by-step#building-an-angular-crud-example-project-step-by-step">“Angular”</a> (components focused) in an effort to simplify it.
+</p>
+</div>
+</div>
+
+<div id="outline-container-AngularJS-makes-HTML-into-a-language-with-variables-and-looping" class="outline-2">
+<h2 id="AngularJS-makes-HTML-into-a-language-with-variables-and-looping"><span class="section-number-2">2</span> <a href="https://www.guru99.com/angularjs-expressions.html">AngularJS makes HTML into a language with variables and control flow</a></h2>
+<div class="outline-text-2" id="text-AngularJS-makes-HTML-into-a-language-with-variables-and-looping">
+<p>
+AngularJS enhances HTML with variables, filters (explained below), arrays, JSON
+Objects, and looping &amp; conditional control flow &#x2014;using JS's usual <code>&amp;&amp;, ||, ==,</code>
+etc for Booleans.  Later we'll see that functions can be defined in an
+associated <i>controller,</i> then used in the <i>view</i>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #6c3163; font-weight: bold;">html</span> ng-app&gt;
+  &lt;<span style="color: #6c3163; font-weight: bold;">head</span>&gt;
+    &lt;<span style="color: #6c3163; font-weight: bold;">script</span>
+<span style="color: #715ab1;">src</span>=<span style="color: #2d9574;">"https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"</span>&gt;
+    &lt;/<span style="color: #6c3163; font-weight: bold;">script</span>&gt;
+  &lt;/<span style="color: #6c3163; font-weight: bold;">head</span>&gt;
+  &lt;<span style="color: #6c3163; font-weight: bold;">body</span>&gt;
+    <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">VARIABLES -----------------------------------------------------</span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+    &lt;<span style="color: #6c3163; font-weight: bold;">div</span> <span style="color: #715ab1;">ng-init</span>=<span style="color: #2d9574;">"firstname = 'Jason'; lastname = 'Jasim'"</span>&gt;
+      {{ firstname + ' ' + lastname }} &lt;<span style="color: #6c3163; font-weight: bold;">br</span>&gt; <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">Jason Jasim </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+      <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">Let's declare a var, but hide the resulting value from view</span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+      &lt;<span style="color: #6c3163; font-weight: bold;">p</span> hidden&gt;  {{  middlename = 'J.'  }}  &lt;/<span style="color: #6c3163; font-weight: bold;">p</span>&gt;
+      <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">Show the full name: Jason J. Jasim </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+      {{ firstname + ' ' + middlename + ' ' + lastname }} &lt;<span style="color: #6c3163; font-weight: bold;">br</span>&gt;
+
+      <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">APPLICATION: Keeping count ----------------------------------</span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+      &lt;<span style="color: #6c3163; font-weight: bold;">button</span> <span style="color: #715ab1;">ng-init</span>=<span style="color: #2d9574;">'count = 0'</span> <span style="color: #715ab1;">ng-click</span>=<span style="color: #2d9574;">'count = count + 1'</span>&gt;
+        Increment
+      &lt;/<span style="color: #6c3163; font-weight: bold;">button</span>&gt;
+      &lt;<span style="color: #6c3163; font-weight: bold;">p</span>&gt; Count: {{count}} &lt;/<span style="color: #6c3163; font-weight: bold;">p</span>&gt;
+
+      <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">FILTERS -----------------------------------------------------</span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+      {{ firstname + ' ' + lastname  |  uppercase }}&lt;<span style="color: #6c3163; font-weight: bold;">br</span>&gt; <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!--</span><span style="color: #2aa1ae; background-color: #ecf3ec;">JASON JASIM</span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+      Price : {{ 21 | currency }} &lt;<span style="color: #6c3163; font-weight: bold;">br</span>&gt; <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">Price : $21.00 </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+      Pi: {{3.14159265358979323846 | number:2 }} &lt;<span style="color: #6c3163; font-weight: bold;">br</span>&gt; <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">Pi: 3.14 </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+
+      <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">ARRAYS ------------------------------------------------------</span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+      <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">["hi","indeed"] </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+      {{ ["hello", "hi", "indeed", "bye"] | filter: 'i' }} &lt;<span style="color: #6c3163; font-weight: bold;">br</span>&gt;
+      <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">Sort alphabetically </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+      {{ ["hello", "hi", "indeed", "bye"] | orderBy: '' }} &lt;<span style="color: #6c3163; font-weight: bold;">br</span>&gt;
+
+      <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">JSON OBJECTS ------------------------------------------------</span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+      <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">Lets make an array of objects ... </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+      {{ people = [ {name: 'kathy', age: 32},
+                    {name: 'bob', age: 12},
+                    {name: 'jasim', age: 114}
+                  ] }}
+      <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">... and sort according to a field. </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+      {{ people | orderBy: 'age' }}
+
+      <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">APPLICATION: Search box -------------------------------------</span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+      &lt;<span style="color: #6c3163; font-weight: bold;">br</span>&gt; Search: &lt;<span style="color: #6c3163; font-weight: bold;">input</span> <span style="color: #715ab1;">ng-model</span>=<span style="color: #2d9574;">"query"</span> /&gt;
+      &lt;<span style="color: #6c3163; font-weight: bold;">br</span>&gt; Results: {{ people | filter: query }}
+
+      <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">LOOPING -----------------------------------------------------</span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+      <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">No more hardcoded lists! </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+      <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">ng-repeat creates a &lt;li&gt; element for each element in the list,</span>
+<span style="color: #2aa1ae; background-color: #ecf3ec;">           using the &lt;li&gt; tag as the template. </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+      &lt;<span style="color: #6c3163; font-weight: bold;">ul</span>&gt;
+        &lt;<span style="color: #6c3163; font-weight: bold;">li</span> <span style="color: #715ab1;">ng-repeat</span>=<span style="color: #2d9574;">"p in people | orderBy:'age'"</span>&gt;
+          {{p.name + ' is ' + p.age + ' years old!' | uppercase }}
+        &lt;/<span style="color: #6c3163; font-weight: bold;">li</span>&gt;
+      &lt;/<span style="color: #6c3163; font-weight: bold;">ul</span>&gt;
+
+      <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">CONDITIONALS ------------------------------------------------</span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+      <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">Name this inputs box's value &#8216;age&#8217; </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+      &lt;<span style="color: #6c3163; font-weight: bold;">input</span> <span style="color: #715ab1;">type</span>=<span style="color: #2d9574;">"number"</span> <span style="color: #715ab1;">ng-model</span>=<span style="color: #2d9574;">"age"</span>&gt;
+      <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">&#8220;Hello&#8221; </span><span style="color: #2aa1ae; background-color: #ecf3ec; text-decoration: underline;">is shown</span><span style="color: #2aa1ae; background-color: #ecf3ec;"> whenever the above &#8216;age&#8217; input is truthy. </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+      &lt;<span style="color: #6c3163; font-weight: bold;">p</span> <span style="color: #715ab1;">type</span>=<span style="color: #2d9574;">"text"</span> <span style="color: #715ab1;">ng-if</span>=<span style="color: #2d9574;">"age"</span>&gt; Hello! &lt;<span style="color: #6c3163; font-weight: bold;">p</span>&gt;
+      <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">This input box shows only if the above, &#8216;age&#8217;, has value 12. </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+      &lt;<span style="color: #6c3163; font-weight: bold;">input</span> <span style="color: #715ab1;">type</span>=<span style="color: #2d9574;">"text"</span> <span style="color: #715ab1;">ng-if</span>=<span style="color: #2d9574;">"age == 12"</span> <span style="color: #715ab1;">placeholder</span>=<span style="color: #2d9574;">"Your name?"</span>&gt;
+
+    &lt;/<span style="color: #6c3163; font-weight: bold;">div</span>&gt;
+  &lt;/<span style="color: #6c3163; font-weight: bold;">body</span>&gt;
+&lt;/<span style="color: #6c3163; font-weight: bold;">html</span>&gt;
+</pre>
+</div>
+
+
+<p>
+<code class="src src-html"><span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">VARIABLES </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span></code> To run some code when an element is
+clicked, we use <code class="src src-emacs-lisp">ng-click</code>.  In our case, we have a
+variable whose value increases with each user click.
+</p>
+
+<p>
+<code class="src src-html"><span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">LOOPING </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span></code>
+We are using the HTML tags of <code class="src src-emacs-lisp">&lt;ul&gt;</code> (Unordered
+List) and <code class="src src-emacs-lisp">&lt;li&gt;</code> (List Item) to display the list of
+items in our array.
+</p>
+
+<p>
+<code class="src src-html"><span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">CONDITIONALS </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span></code>
+When the condition to <code class="src src-emacs-lisp">ng-if</code> is falsy, the HTML
+element is removed from the DOM; otherwise it's added to the DOM.
+</p>
+
+<p>
+Note that arbitrary JS expressions will not be evaluated in moustaches; for
+that, we give the div in a ‘controller’ (below) which attaches a method to the
+<code class="src src-emacs-lisp">$scope</code>, and in that method we do our arbitrary JS
+and that method is the one we <i>can</i> call in moustaches (within our div).  See <a href="https://docs.angularjs.org/guide/expression#:~:text=AngularJS%20expressions%20are%20JavaScript%2Dlike,1%2B2">here</a>
+for the docs on the permissible expressions.
+</p>
+
+<p>
+Moreover, AngularJS provides HTML directives that “already exist” but <i>know how
+evaluate {{moustache}} expressions</i>; e.g., <code class="src src-C">&lt;a href=<span style="color: #2d9574;">"#!/go/{{expr}}"</span>&gt;Go<span style="color: #4e3163;">!</span>&lt;/a&gt;</code> would <i>not</i> evaluate <code class="src src-emacs-lisp">expr</code>, for that we use <code class="src src-emacs-lisp">ng-href</code>.
+</p>
+
+<div class="org-center">
+<p>
+<i>Bindings can come from intricate JS code!</i> See “MVC” below.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-Filters" class="outline-2">
+<h2 id="Filters"><span class="section-number-2">3</span> <a href="https://www.guru99.com/angularjs-filter.html">Filters</a></h2>
+<div class="outline-text-2" id="text-Filters">
+<p>
+<i>Filters</i> change a value's presentation; e.g., the <code class="src src-emacs-lisp">currency</code> filter displays a number with a “$” symbol and the right number
+of decimal places, whereas the <code class="src src-emacs-lisp">filter</code> filter
+returns a subset of an array.  Other filters include <code class="src src-emacs-lisp">uppercase</code> and <code class="src src-emacs-lisp">lowercase</code> for formatting
+strings, and <code class="src src-emacs-lisp">orderBy</code> to sort arrays,
+<code class="src src-emacs-lisp">json</code> to show a JS object literally &#x2014;useful for
+debugging&#x2014; and <code class="src src-emacs-lisp">limitTo</code> which slices an array;
+e.g., <code class="src src-html">arr | limitTo:2:0</code> gets the subarray of 2 elements
+starting at index 0; finally, <code class="src src-emacs-lisp">number:N</code> rounds a
+number to \(N\) decimal places.
+</p>
+
+<p>
+As seen above, filters can be used in both {{expressions}} (using the pipe, ‘|’,
+operator) and &lt;directives&gt;.  We can also define our own filters:
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #6c3163; font-weight: bold;">html</span> <span style="color: #715ab1;">ng-app</span>=<span style="color: #2d9574;">"myApp"</span>&gt;
+  &lt;<span style="color: #6c3163; font-weight: bold;">head</span>&gt;
+    &lt;<span style="color: #6c3163; font-weight: bold;">script</span>
+<span style="color: #715ab1;">src</span>=<span style="color: #2d9574;">"https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"</span>&gt;
+    &lt;/<span style="color: #6c3163; font-weight: bold;">script</span>&gt;
+  &lt;/<span style="color: #6c3163; font-weight: bold;">head</span>&gt;
+  &lt;<span style="color: #6c3163; font-weight: bold;">body</span>&gt;
+    {{ "hello" | DemoFilter}} <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">hello woah! </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+    &lt;<span style="color: #6c3163; font-weight: bold;">script</span>&gt; // NEW
+      angular.module("myApp", [])
+       .filter('DemoFilter', function() {
+           return function(input) {
+             // The actual custom filter code goes here
+             return input + " woah!"
+      }})
+    &lt;/<span style="color: #6c3163; font-weight: bold;">script</span>&gt;
+  &lt;/<span style="color: #6c3163; font-weight: bold;">body</span>&gt;
+&lt;/<span style="color: #6c3163; font-weight: bold;">html</span>&gt;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-Apps" class="outline-2">
+<h2 id="Apps"><span class="section-number-2">4</span> Apps</h2>
+<div class="outline-text-2" id="text-Apps">
+<p>
+We may have multiple AngularJS apps for the same HTML file, and each app is
+declared with the syntax <code class="src src-emacs-lisp">var app <span style="color: #6c3163; font-weight: bold;">=</span> angular.module(appName,dependencies)<span style="color: #2aa1ae; background-color: #ecf3ec;">;</span></code>.  One then furnishes each
+<code class="src src-emacs-lisp">app</code> with its own controllers, filters,
+directives, etc &#x2014;e.g., <code class="src src-js">app.filter(..., ...)</code>  as shown
+above.
+</p>
+</div>
+</div>
+
+<div id="outline-container-Directives" class="outline-2">
+<h2 id="Directives"><span class="section-number-2">5</span> Directives &#x2014;Essentially “HTML Functions”</h2>
+<div class="outline-text-2" id="text-Directives">
+<p>
+The HTML tags starting with <code class="src src-emacs-lisp">ng-</code> are AngularJS
+<i>directives</i>. They operate on HTML elements; e.g., from the first section above,
+the <code class="src src-emacs-lisp">ng-model</code> directive binds a name to the value
+(text) of an HTML element (such an input box); whereas the
+<code class="src src-emacs-lisp">ng-repeat</code> directive repeats an HTML element.
+</p>
+
+<ul class="org-ul">
+<li>A page can be associated with multiple AngularJS apps, and
+<code class="src src-emacs-lisp">ng-app</code> indicates where each app starts.</li>
+
+<li><code class="src src-emacs-lisp">ng-init</code> defines variables and their
+corresponding values (in the view itself), as shown above, &#x2014;but this is
+usually done in a <i>controller</i> (later).</li>
+</ul>
+
+<p>
+We can also define our own <a href="https://www.guru99.com/angularjs-custom-directive.html">custom directives</a>: Below, our custom
+<code class="src src-emacs-lisp">ng-speak</code> directive injects a <code class="src src-html">&lt;<span style="color: #6c3163; font-weight: bold;">strong</span>&gt;</code> tag and prepends the text given to <code class="src src-emacs-lisp">ng-speak</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #6c3163; font-weight: bold;">html</span> <span style="color: #715ab1;">ng-app</span>=<span style="color: #2d9574;">"myApp"</span>&gt;
+  &lt;<span style="color: #6c3163; font-weight: bold;">head</span>&gt;
+    &lt;<span style="color: #6c3163; font-weight: bold;">script</span>
+<span style="color: #715ab1;">src</span>=<span style="color: #2d9574;">"https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"</span>&gt;
+    &lt;/<span style="color: #6c3163; font-weight: bold;">script</span>&gt;
+  &lt;/<span style="color: #6c3163; font-weight: bold;">head</span>&gt;
+  &lt;<span style="color: #6c3163; font-weight: bold;">body</span>&gt;
+    <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">This becomes:   &lt;strong&gt;</span><span style="color: #2aa1ae; background-color: #ecf3ec; font-weight: bold;"> Hello, my friends! </span><span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;/strong&gt;  </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+    &lt;<span style="color: #6c3163; font-weight: bold;">div</span> ng-speak&gt; my friends &lt;/<span style="color: #6c3163; font-weight: bold;">div</span>&gt;
+    <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">This becomes:  Sorted ... ["a","m","s","u"] </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+    &lt;<span style="color: #6c3163; font-weight: bold;">ng-woah</span>&gt;&lt;/<span style="color: #6c3163; font-weight: bold;">ng-woah</span>&gt;
+
+    &lt;<span style="color: #6c3163; font-weight: bold;">script</span>&gt;
+      var myApp = angular.module("myApp", [])
+
+      myApp.directive('ngSpeak', function() {
+           return {
+             // Get the HTML within the directive call
+             transclude: true,
+             // Replace the div with this HTML template,
+             // using the div contents.
+             template: `&lt;<span style="color: #6c3163; font-weight: bold;">strong</span>&gt;
+                          Hello, &lt;<span style="color: #6c3163; font-weight: bold;">ng-transclude</span>&gt;&lt;/<span style="color: #6c3163; font-weight: bold;">ng-transclude</span>&gt;!
+                        &lt;/<span style="color: #6c3163; font-weight: bold;">strong</span>&gt;`
+      }})
+
+      myApp.directive('ngWoah', function() {
+           return {
+             template: `Sorted ... {{letters | orderBy: ''}}`,
+             controller: function ($scope) {
+                $scope.letters = "musa".split('') }
+      }})
+    &lt;/<span style="color: #6c3163; font-weight: bold;">script</span>&gt;
+  &lt;/<span style="color: #6c3163; font-weight: bold;">body</span>&gt;
+&lt;/<span style="color: #6c3163; font-weight: bold;">html</span>&gt;
+</pre>
+</div>
+
+<p>
+<b>AngularJS Custom Directives Naming:</b> The <i>definition</i> of directives uses <code>camelCase</code>
+(as in <code class="src src-emacs-lisp">ngSpeak</code>), whereas the actual <i>use</i> of a
+directive is done with <code>kebab-case</code> (as in <code class="src src-emacs-lisp">ng-speak</code>). Moreover, custom directive names must start with
+<code class="src src-emacs-lisp">ng</code>.
+</p>
+
+<p>
+Notice that there are two ways to use a directive: Both of <code class="src src-html">&lt;<span style="color: #6c3163; font-weight: bold;">div</span> ng-speak&gt; ... &lt;/<span style="color: #6c3163; font-weight: bold;">div</span>&gt;</code> and <code class="src src-html">&lt;<span style="color: #6c3163; font-weight: bold;">ng-speak</span>&gt; ... &lt;/<span style="color: #6c3163; font-weight: bold;">ng-speak</span>&gt;</code> tell AngularJS to instantiate a custom directive; i.e., to
+expand its template which is managed by an instance of the specified controller.
+</p>
+
+<p>
+The <code class="src src-emacs-lisp">template</code> may <code>{{evaluate}}</code> any data defined in
+the parent scope; e.g., if our div occurs in the scope of a controller.
+There are several attributes that can be used during a new directive creation;
+here are a few:
+</p>
+
+<ul class="org-ul">
+<li><code class="src src-emacs-lisp">template</code>: An inline string (HTML) template.</li>
+<li><code class="src src-emacs-lisp">templateUrl</code>: An (longer) HTML template inside a
+separate file.</li>
+<li><code class="src src-emacs-lisp">transclude</code>: Place the child elements of
+the directive as within the template.</li>
+<li><p>
+<code class="src src-emacs-lisp">controller</code>: Furnish the directive with bindings
+from JS code.
+</p>
+<ul class="org-ul">
+<li>We <i>attached the <code class="src src-emacs-lisp">letters</code> binding to the scope</i>
+using AngularJS's “dependency injection”: We get the scope of the current tag
+via the special ‘service’ <code class="src src-emacs-lisp">$scope</code>.</li>
+<li>More on this below, in “MVC”.</li>
+</ul>
+
+<p>
+Importantly, the <code class="src src-emacs-lisp">template</code> contains the
+presentation logic and uses bindings, whereas the <code class="src src-emacs-lisp">controller</code> provides the <i>context</i> in which the bindings are evaluated.
+</p></li>
+</ul>
+
+<p>
+<i>Directives allow us to reuse functionality!</i> Similar parts of our HTML code are
+abstracted out into <code class="src src-emacs-lisp">template</code>s and their bindings
+(i.e., the pieces, values, in which the HTML parts differ) are abstracted out
+into <code class="src src-emacs-lisp">controller</code>s.
+</p>
+<ul class="org-ul">
+<li>We just invoke the directive to get the new feature.</li>
+<li>This means that any alteration to the directive definition, such as the
+template, propagates to all use sites; no copy-pasting needed.</li>
+<li>The main view (index.html) becomes more declarative, cleaner.</li>
+</ul>
+
+<p>
+<a href="https://docs.angularjs.org/tutorial/step_03">Components</a> are a <a href="https://docs.angularjs.org/guide/component">‘saner’</a> form of directives that aim to narrow scope.
+</p>
+</div>
+</div>
+
+<div id="outline-container-MVC" class="outline-2">
+<h2 id="MVC"><span class="section-number-2">6</span> The MVC Design Pattern &#x2014;Model, View, Controller</h2>
+<div class="outline-text-2" id="text-MVC">
+<p>
+<b>Instead of declaring variables and their values <i>within</i> the view, we can do so
+in a controller <i>for</i> the model.</b>
+</p>
+
+<p>
+The <i>MVC</i> design pattern describes a separation of concerns by splitting an
+application into 3 parts:
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left"><i>Model</i></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">The application data, state: Variables and functions</td>
+</tr>
+
+<tr>
+<td class="org-left"><i>View</i></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">The presentation of the data: HTML, templates, CSS</td>
+</tr>
+
+<tr>
+<td class="org-left"><i>Controller</i></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">The brains/logic that connects the above two.</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Tersely put, MVC is the CRUD operations &amp; state, the GUI, and the code to
+connect the two &#x2014;e.g., changes in one are propagated to the other.
+</p>
+
+<p>
+MVC splits a program into the (“backend, knowledge”) data, the (“frontend,
+visual”) presentation, and the logic layers.  That is, <i>the view is a projection
+of the model through the HTML template, as directed by the controller.</i>
+</p>
+
+<p>
+E.g., in a restaurant, the kitchen with its ingredients and chefs is the model,
+the menu and dinning table is the view, and the waiter is the controller.
+</p>
+
+<p>
+<i>Two-way binding</i>: When we specify which control is associated to which part of a
+view, AngularJS automatically keeps the two layers in sync.  As such, the
+<i>controller</i> consumes user data from the view, uses model utilities to process the
+data, then displays new data to the user via the view.
+</p>
+
+<p>
+The special <code class="src src-emacs-lisp">$scope</code> ‘service’ is used to expose
+the model to the view &#x2014;the controller's job is to populate the scope with
+behaviour. That is, the view can execute any computation, and access any data,
+that is bound to <code class="src src-emacs-lisp">$scope</code> &#x2014;as such, an app
+generally has multiple controllers, each for a particular part of the view.
+</p>
+</div>
+
+<div id="outline-container-How-do-we-split-up-an-app" class="outline-3">
+<h3 id="How-do-we-split-up-an-app"><span class="section-number-3">6.1</span> <i>How do we split up an app?</i></h3>
+<div class="outline-text-3" id="text-How-do-we-split-up-an-app">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left"><i><b>How do we split up an app?</b></i></td>
+</tr>
+</tbody>
+</table>
+
+<p>
+By way of example, the following code&#x2026;
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #3a81c3; font-weight: bold;">!doctype</span> html&gt;
+&lt;<span style="color: #6c3163; font-weight: bold;">html</span> ng-app&gt;
+  &lt;<span style="color: #6c3163; font-weight: bold;">head</span>&gt;
+    &lt;<span style="color: #6c3163; font-weight: bold;">script</span>
+<span style="color: #715ab1;">src</span>=<span style="color: #2d9574;">"https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"</span>&gt;
+    &lt;/<span style="color: #6c3163; font-weight: bold;">script</span>&gt;
+  &lt;/<span style="color: #6c3163; font-weight: bold;">head</span>&gt;
+  &lt;<span style="color: #6c3163; font-weight: bold;">body</span> <span style="color: #715ab1;">ng-init</span>=<span style="color: #2d9574;">"prompt = 'What is your name?'"</span>&gt;
+    &lt;<span style="color: #6c3163; font-weight: bold;">input</span> type=text <span style="color: #715ab1;">ng-model</span>=<span style="color: #2d9574;">"userName"</span> <span style="color: #715ab1;">placeholder</span>=<span style="color: #2d9574;">"{{prompt}}"</span>&gt;
+    &lt;<span style="color: #6c3163; font-weight: bold;">div</span> <span style="color: #715ab1;">ng-if</span>=<span style="color: #2d9574;">"userName"</span>&gt; "Why hello there, " {{userName}} &lt;/<span style="color: #6c3163; font-weight: bold;">div</span>&gt;
+  &lt;/<span style="color: #6c3163; font-weight: bold;">body</span>&gt;
+&lt;/<span style="color: #6c3163; font-weight: bold;">html</span>&gt;
+</pre>
+</div>
+
+<p>
+Can be split up using a <i>controller</i>&#x2026;
+(We also change from <code>userName</code> to an object <code>user</code> with a field <code>name</code>)
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #3a81c3; font-weight: bold;">!doctype</span> html&gt;
+&lt;<span style="color: #6c3163; font-weight: bold;">html</span> <span style="color: #715ab1;">ng-app</span>=<span style="color: #2d9574;">"myGreetingApp"</span>&gt; <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">NEW </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+  &lt;<span style="color: #6c3163; font-weight: bold;">head</span>&gt;
+    &lt;<span style="color: #6c3163; font-weight: bold;">script</span>
+<span style="color: #715ab1;">src</span>=<span style="color: #2d9574;">"https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"</span>&gt;
+    &lt;/<span style="color: #6c3163; font-weight: bold;">script</span>&gt;
+  &lt;/<span style="color: #6c3163; font-weight: bold;">head</span>&gt;
+  &lt;<span style="color: #6c3163; font-weight: bold;">body</span> <span style="color: #715ab1;">ng-controller</span>=<span style="color: #2d9574;">"PromptController"</span>&gt; <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">NEW </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+    &lt;<span style="color: #6c3163; font-weight: bold;">input</span> type=text <span style="color: #715ab1;">ng-model</span>=<span style="color: #2d9574;">"user.name"</span> <span style="color: #715ab1;">placeholder</span>=<span style="color: #2d9574;">"{{prompt}}"</span>&gt;
+    &lt;<span style="color: #6c3163; font-weight: bold;">div</span> <span style="color: #715ab1;">ng-if</span>=<span style="color: #2d9574;">"user.name"</span>&gt; {{greet(user)}} &lt;/<span style="color: #6c3163; font-weight: bold;">div</span>&gt;
+    &lt;<span style="color: #6c3163; font-weight: bold;">script</span>&gt; // NEW
+      angular.module("myGreetingApp", [])
+       .controller("PromptController",
+         function($scope){
+           // One-time setup for prompt
+           $scope.prompt = "What is your name?"
+           // Whenever the user changes, this function <span style="text-decoration: underline;">is called</span>.
+           $scope.greet = function(user){
+             return  "Why hello there, " + user.name
+      }})
+    &lt;/<span style="color: #6c3163; font-weight: bold;">script</span>&gt;
+  &lt;/<span style="color: #6c3163; font-weight: bold;">body</span>&gt;
+&lt;/<span style="color: #6c3163; font-weight: bold;">html</span>&gt;
+</pre>
+</div>
+
+<p>
+( The line <code class="src src-html">&lt;<span style="color: #6c3163; font-weight: bold;">body</span> <span style="color: #715ab1;">ng-controller</span>=<span style="color: #2d9574;">"PromptController"</span>&gt;</code> lets
+everything in the <code class="src src-emacs-lisp">body</code> tag have access to the
+functionality of the <code class="src src-emacs-lisp">PromptController</code> (which is
+just a JS function).  Notice that our controller <i>defines</i> <code class="src src-emacs-lisp">prompt</code> and <code class="src src-emacs-lisp">greet</code> for use in the view
+---<i>using</i> the value of the input box, which is declared in the view with
+<code class="src src-emacs-lisp">ng-model=<span style="color: #2d9574;">"user.name"</span></code>; conversely, we can update
+the <code>user.name</code> <i>input box</i>'s value using the controller: <code>$scope.user.name =
+"hola"</code>. )
+</p>
+
+<p>
+The above is a bit messy, and so we split it up further into two files: The
+<code class="src src-emacs-lisp">mvc_frontend.html</code> file focus on presentation only&#x2026;
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #3a81c3; font-weight: bold;">!doctype</span> html&gt;
+&lt;<span style="color: #6c3163; font-weight: bold;">html</span> <span style="color: #715ab1;">ng-app</span>=<span style="color: #2d9574;">"myGreetingApp"</span>&gt;
+  &lt;<span style="color: #6c3163; font-weight: bold;">head</span>&gt;
+    &lt;<span style="color: #6c3163; font-weight: bold;">script</span>
+<span style="color: #715ab1;">src</span>=<span style="color: #2d9574;">"https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"</span>&gt;
+    &lt;/<span style="color: #6c3163; font-weight: bold;">script</span>&gt;
+    &lt;<span style="color: #6c3163; font-weight: bold;">script</span> <span style="color: #715ab1;">src</span>=<span style="color: #2d9574;">"mvc_backend.js"</span>&gt;&lt;/<span style="color: #6c3163; font-weight: bold;">script</span>&gt; <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">NEW </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+  &lt;/<span style="color: #6c3163; font-weight: bold;">head</span>&gt;
+  &lt;<span style="color: #6c3163; font-weight: bold;">body</span> <span style="color: #715ab1;">ng-controller</span>=<span style="color: #2d9574;">"PromptController"</span>&gt;
+    &lt;<span style="color: #6c3163; font-weight: bold;">input</span> type=text <span style="color: #715ab1;">ng-model</span>=<span style="color: #2d9574;">"user.name"</span> <span style="color: #715ab1;">placeholder</span>=<span style="color: #2d9574;">"{{prompt}}"</span>&gt;
+    &lt;<span style="color: #6c3163; font-weight: bold;">div</span> <span style="color: #715ab1;">ng-if</span>=<span style="color: #2d9574;">"user.name"</span>&gt; {{greet(user)}} &lt;/<span style="color: #6c3163; font-weight: bold;">div</span>&gt;
+  &lt;/<span style="color: #6c3163; font-weight: bold;">body</span>&gt;
+&lt;/<span style="color: #6c3163; font-weight: bold;">html</span>&gt;
+</pre>
+</div>
+<p>
+&#x2026;and the <code class="src src-emacs-lisp">mvc_backend.js</code> file, which has the bindings,&#x2026;
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #2aa1ae; background-color: #ecf3ec;">// </span><span style="color: #2aa1ae; background-color: #ecf3ec;">Model</span>
+<span style="color: #3a81c3; font-weight: bold;">var</span> <span style="color: #715ab1;">app</span> = angular.module(<span style="color: #2d9574;">"myGreetingApp"</span>, [])
+<span style="color: #3a81c3; font-weight: bold;">function</span> <span style="color: #6c3163; font-weight: bold;">greet</span>(<span style="color: #715ab1;">user</span>) { <span style="color: #3a81c3; font-weight: bold;">return</span>  <span style="color: #2d9574;">"Why hello there, "</span> + user.name }
+
+<span style="color: #2aa1ae; background-color: #ecf3ec;">// </span><span style="color: #2aa1ae; background-color: #ecf3ec;">Controllers</span>
+app.controller(<span style="color: #2d9574;">"PromptController"</span>,
+      <span style="color: #3a81c3; font-weight: bold;">function</span>(<span style="color: #715ab1;">$scope</span>){
+        $scope.prompt = <span style="color: #2d9574;">"What is your name?"</span>
+        $scope.greet  = greet
+     })
+</pre>
+</div>
+
+<p>
+It may be useful to know that within a controller, <code class="src src-emacs-lisp">$eval</code> acts like <code>{{...}}</code>; e.g., instead of <code class="src src-emacs-lisp">$scope.a <span style="color: #6c3163; font-weight: bold;">+</span> $scope.b</code> we may write <code class="src src-emacs-lisp">$scope.$eval('a <span style="color: #6c3163; font-weight: bold;">+</span> b')</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-Number-Guessing-Game" class="outline-3">
+<h3 id="Number-Guessing-Game"><span class="section-number-3">6.2</span> Number Guessing Game</h3>
+<div class="outline-text-3" id="text-Number-Guessing-Game">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left"><b><i>Number Guessing Game</i></b></td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Exercise: Using <code class="src src-emacs-lisp">ng-init</code>, <code class="src src-emacs-lisp">ng-click</code>, controllers, and other directives, build a “number guessing game”; the user
+makes a guess in an input box, sees whether the guess is too high or low or
+correct, and has a “new game” button.
+Finally, give the user an “I give up” button which shows the answer
+&#x2014;hint, use <code class="src src-emacs-lisp">ng-if</code>.
+</p>
+
+<p>
+Hint: This can be done in under 40 lines, in a single file.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-Single-Page-Applications-SPA-and-src-emacs-lisp-exports-code-route" class="outline-2">
+<h2 id="Single-Page-Applications-SPA-and-src-emacs-lisp-exports-code-route"><span class="section-number-2">7</span> Single Page Applications (SPA) and <code class="src src-emacs-lisp">$route</code></h2>
+<div class="outline-text-2" id="text-Single-Page-Applications-SPA-and-src-emacs-lisp-exports-code-route">
+<p>
+SPA's give the feeling that the entire application is in a single webpage: When
+the user requests something, <i>part of the webpage</i> changes rather than loading an
+entirely new webpage. Example SPA's include Gmail and Netflix.
+</p>
+
+<p>
+That is, instead of having a webpage for each aspect of your app, we have a
+single webpage and <i>multiple</i> views &#x2014;one of which is shown to the user depending
+on what they want&#x2014; each with its own controller (since each view has its own
+goals).
+</p>
+
+<p>
+SPA's can be created as follows &#x2014;and exemplified in the code below.
+</p>
+
+<ol class="org-ol">
+<li><p>
+Add <code class="src src-emacs-lisp">angular-route</code> as a script reference <i>after</i>
+the AngularJS script.
+</p>
+
+<p>
+Routing is used to present different views to the user on the same web page:
+The <code class="src src-emacs-lisp">$route</code> service watches the URL, and
+whenever it changes, a route definition is looked up (i.e., view +
+controller).
+</p>
+
+<p>
+<code class="src src-js"><span style="color: #2aa1ae; background-color: #ecf3ec;">// </span><span style="color: #2aa1ae; background-color: #ecf3ec;">[1b]</span></code> In the app declaration (the JS file), we need
+to add a dependency on the <code class="src src-emacs-lisp">ngRoute</code> module.
+</p></li>
+
+<li>Add <code class="src src-emacs-lisp">href</code> tags which will represent links to
+the different parts of the application.</li>
+
+<li><p>
+Add the <code class="src src-emacs-lisp">ng-view</code> directive within the
+application; it's used to inject the various views.
+</p>
+
+<p>
+Whenever the route (the URL in your browser's address bar) changes, we load
+the associated HTML template view at the location of the
+<code class="src src-emacs-lisp">ng-view</code> directive.
+</p></li>
+
+<li><p>
+Define routes through <code class="src src-emacs-lisp">$routeProvider</code>.
+</p>
+
+<p>
+<code class="src src-js"><span style="color: #2aa1ae; background-color: #ecf3ec;">// </span><span style="color: #2aa1ae; background-color: #ecf3ec;">[4a]</span></code> Whenever the user clicks on the href tag <code>home</code>,
+from step 2, we place the HTML <code class="src src-html">About &lt;<span style="color: #6c3163; font-weight: bold;">em</span>&gt;<span style="font-style: italic;">Us</span>&lt;/<span style="color: #6c3163; font-weight: bold;">em</span>&gt;</code>
+into the place of the <code class="src src-emacs-lisp">ng-view</code> tag.
+</p>
+
+<p>
+<code class="src src-js"><span style="color: #2aa1ae; background-color: #ecf3ec;">// </span><span style="color: #2aa1ae; background-color: #ecf3ec;">[4b]</span></code> Whenever the user clicks on the href tag <code>"hello"</code>,
+from step 2, we place the contents of <code>hello.html</code> into the place of the
+<code class="src src-emacs-lisp">ng-view</code> tag.
+</p>
+
+<p>
+<code class="src src-js"><span style="color: #2aa1ae; background-color: #ecf3ec;">// </span><span style="color: #2aa1ae; background-color: #ecf3ec;">[4c]</span></code> Whenever the user clicks on the href tag
+<code>newevent</code>, the <code>newevent.html</code> template is inserted in-place of the
+<code class="src src-emacs-lisp">ng-view</code> tag <i>and</i> this view is given the
+<code class="src src-emacs-lisp">NewEventController</code> controller to manage its
+state and logic.
+</p>
+
+<p>
+<code class="src src-js"><span style="color: #2aa1ae; background-color: #ecf3ec;">// </span><span style="color: #2aa1ae; background-color: #ecf3ec;">[4d]</span></code> This route definition has a custom key-value
+pair defined in the route, which is then accessed in step 5 from the
+<code class="src src-emacs-lisp">$route</code> service and attached to the
+<code class="src src-emacs-lisp">$scope</code> for use in the template.
+</p>
+
+<p>
+<code class="src src-js"><span style="color: #2aa1ae; background-color: #ecf3ec;">// </span><span style="color: #2aa1ae; background-color: #ecf3ec;">[4e]</span></code> Parameters can be passed to the route via the
+URL; e.g., <code>index.html#!/go/1</code> and <code>index.html#!/go/23</code> are two routes with the
+parameter being 1 and 23.  The controller service <code class="src src-emacs-lisp">$routeParams</code> then access the parameters.  (Note: <code>index.html#!/go/</code> is
+the route <code>go</code> with an empty parameter; it is different from <code>index.html#!/go</code>,
+which has no parameters and so is either supported in its own route
+definition or redirects to the default route.)
+</p>
+
+<p>
+<code class="src src-js"><span style="color: #2aa1ae; background-color: #ecf3ec;">// </span><span style="color: #2aa1ae; background-color: #ecf3ec;">[4f]</span></code> Whenever the URL has a route not accounted for
+&#x2014;such as when the page opens up, or the user changes the URL to
+gibberish&#x2014;, then we redirect them to a default route.  When not provided,
+unconsidered routes redirect to the landing page; i.e., <code class="src src-js">redirectTo: <span style="color: #2d9574;">'/'</span></code>.
+</p></li>
+
+<li><p>
+Add controllers to the application.
+</p>
+
+<p>
+Just as the controller <code class="src src-emacs-lisp">$scope</code> service passes
+information from the model to the view , the <code class="src src-emacs-lisp">$route</code> service accesses properties of the route.
+</p>
+
+<p>
+Note that we could reuse the controller among multiple views, or, more
+likely, each view could have its own controller.
+</p></li>
+
+<li><p>
+Create the different web pages for the application
+</p>
+
+<p>
+In our example below, we use the following templates:
+</p></li>
+</ol>
+
+<div style="column-rule-style: none;column-count: 2;">
+<p>
+<span class="underline">hello.html</span>
+</p>
+<div class="org-src-container">
+<pre class="src src-html">Hello!
+</pre>
+</div>
+<p>
+<p><br>
+<span class="underline">newevent.html</span>
+</p>
+<div class="org-src-container">
+<pre class="src src-html">Wanna add a new event, eh?
+{{message}}
+</pre>
+</div>
+
+</div>
+
+<p>
+. . . . . . . . . . . . . . . . . . . . . . .
+<code class="src src-emacs-lisp">index.html</code>
+. . . . . . . . . . . . . . . . . . . . . . .
+</p>
+
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #6c3163; font-weight: bold;">html</span> ng-app = <span style="color: #2d9574;">"myApp"</span>&gt;
+  &lt;<span style="color: #6c3163; font-weight: bold;">head</span>&gt;
+    &lt;<span style="color: #6c3163; font-weight: bold;">script</span>
+<span style="color: #715ab1;">src</span>=<span style="color: #2d9574;">"https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"</span>&gt;
+    &lt;/<span style="color: #6c3163; font-weight: bold;">script</span>&gt;
+    &lt;<span style="color: #6c3163; font-weight: bold;">script</span>
+<span style="color: #715ab1;">src</span>=<span style="color: #2d9574;">"https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"</span>&gt;
+    &lt;/<span style="color: #6c3163; font-weight: bold;">script</span>&gt;  <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">[1] </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+    &lt;<span style="color: #6c3163; font-weight: bold;">script</span> <span style="color: #715ab1;">src</span>=<span style="color: #2d9574;">"script.js"</span>&gt;&lt;/<span style="color: #6c3163; font-weight: bold;">script</span>&gt;
+  &lt;/<span style="color: #6c3163; font-weight: bold;">head</span>&gt;
+  &lt;<span style="color: #6c3163; font-weight: bold;">body</span>&gt;
+    This text appears alongside every view &lt;<span style="color: #6c3163; font-weight: bold;">hr</span>&gt;
+    <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">[2] </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+    &lt;<span style="color: #6c3163; font-weight: bold;">a</span> <span style="color: #715ab1;">href</span>=<span style="color: #2d9574;">"#!/hello"</span>&gt;Hello&lt;/<span style="color: #6c3163; font-weight: bold;">a</span>&gt;&lt;<span style="color: #6c3163; font-weight: bold;">br</span>&gt;
+    &lt;<span style="color: #6c3163; font-weight: bold;">a</span> <span style="color: #715ab1;">href</span>=<span style="color: #2d9574;">"#!/home"</span>&gt;Home&lt;/<span style="color: #6c3163; font-weight: bold;">a</span>&gt;&lt;<span style="color: #6c3163; font-weight: bold;">br</span>&gt;
+    &lt;<span style="color: #6c3163; font-weight: bold;">a</span> <span style="color: #715ab1;">href</span>=<span style="color: #2d9574;">"#!/newevent"</span>&gt;Add new event&lt;/<span style="color: #6c3163; font-weight: bold;">a</span>&gt;&lt;<span style="color: #6c3163; font-weight: bold;">br</span>&gt;
+    &lt;<span style="color: #6c3163; font-weight: bold;">a</span> <span style="color: #715ab1;">href</span>=<span style="color: #2d9574;">"#!/greet"</span>&gt;Welcome&lt;/<span style="color: #6c3163; font-weight: bold;">a</span>&gt;&lt;<span style="color: #6c3163; font-weight: bold;">br</span>&gt;
+    &lt;<span style="color: #6c3163; font-weight: bold;">input</span> <span style="color: #715ab1;">type</span>=<span style="color: #2d9574;">"number"</span> <span style="color: #715ab1;">ng-model</span>=<span style="color: #2d9574;">"it"</span> <span style="color: #715ab1;">placeholder</span>=<span style="color: #2d9574;">"0"</span>&gt;
+    &lt;<span style="color: #6c3163; font-weight: bold;">a</span> <span style="color: #715ab1;">ng-href</span>=<span style="color: #2d9574;">"#!/go/{{it}}"</span>&gt;Go!&lt;/<span style="color: #6c3163; font-weight: bold;">a</span>&gt;
+    <span style="color: #2aa1ae; background-color: #ecf3ec;">&lt;!-- </span><span style="color: #2aa1ae; background-color: #ecf3ec;">[3] </span><span style="color: #2aa1ae; background-color: #ecf3ec;">--&gt;</span>
+    &lt;<span style="color: #6c3163; font-weight: bold;">br</span>&gt;&lt;<span style="color: #6c3163; font-weight: bold;">div</span> ng-view&gt;&lt;/<span style="color: #6c3163; font-weight: bold;">div</span>&gt;&lt;<span style="color: #6c3163; font-weight: bold;">hr</span>&gt;
+    Likewise, this text appears alongside every view
+  &lt;/<span style="color: #6c3163; font-weight: bold;">body</span>&gt;
+&lt;/<span style="color: #6c3163; font-weight: bold;">html</span>&gt;
+</pre>
+</div>
+
+<p>
+. . . . . . . . . . . . . . . . . . . . . . .
+<code class="src src-emacs-lisp">script.js</code>
+. . . . . . . . . . . . . . . . . . . . . . .
+</p>
+
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #3a81c3; font-weight: bold;">var</span> <span style="color: #715ab1;">myApp</span> = angular
+            .module(<span style="color: #2d9574;">"myApp"</span>,[<span style="color: #2d9574;">"ngRoute"</span>]) <span style="color: #2aa1ae; background-color: #ecf3ec;">// </span><span style="color: #2aa1ae; background-color: #ecf3ec;">[1b]</span>
+
+myApp.config(<span style="color: #3a81c3; font-weight: bold;">function</span>(<span style="color: #715ab1;">$routeProvider</span>){ <span style="color: #2aa1ae; background-color: #ecf3ec;">// </span><span style="color: #2aa1ae; background-color: #ecf3ec;">[4]</span>
+    $routeProvider
+        <span style="color: #2aa1ae; background-color: #ecf3ec;">// </span><span style="color: #2aa1ae; background-color: #ecf3ec;">[4a] Inline HTML template</span>
+        .when(<span style="color: #2d9574;">"/home"</span>,{
+            template:<span style="color: #2d9574;">"About &lt;em&gt;Us&lt;/em&gt;"</span>
+        })
+        <span style="color: #2aa1ae; background-color: #ecf3ec;">// </span><span style="color: #2aa1ae; background-color: #ecf3ec;">[4b] HTML template in another file</span>
+        .when(<span style="color: #2d9574;">"/hello"</span>, {
+            templateUrl: <span style="color: #2d9574;">"hello.html"</span>
+        })
+        <span style="color: #2aa1ae; background-color: #ecf3ec;">// </span><span style="color: #2aa1ae; background-color: #ecf3ec;">[4c] HTML template that has {{expressions}}</span>
+        .when(<span style="color: #2d9574;">"/newevent"</span>, {
+            templateUrl: <span style="color: #2d9574;">"newevent.html"</span>,
+            controller: <span style="color: #2d9574;">'NewEventController'</span>
+        })
+        <span style="color: #2aa1ae; background-color: #ecf3ec;">// </span><span style="color: #2aa1ae; background-color: #ecf3ec;">[4d] HTML /inline/ template that has {{expressions}}</span>
+        <span style="color: #2aa1ae; background-color: #ecf3ec;">// </span><span style="color: #2aa1ae; background-color: #ecf3ec;">and has a key-value pair declared in the route definition.</span>
+        .when(<span style="color: #2d9574;">"/greet"</span>, {
+            myfriend: <span style="color: #2d9574;">"Jasim"</span>,
+            template: <span style="color: #2d9574;">"Hello, {{person}}!"</span>,
+            controller: <span style="color: #2d9574;">'GreetingController'</span>
+        })
+         <span style="color: #2aa1ae; background-color: #ecf3ec;">// </span><span style="color: #2aa1ae; background-color: #ecf3ec;">[4e] A template with a parameter &#8220;myParam&#8221;;</span>
+         <span style="color: #2aa1ae; background-color: #ecf3ec;">// </span><span style="color: #2aa1ae; background-color: #ecf3ec;">which the controller decides to bind it to &#8220;page&#8221;.</span>
+        .when(<span style="color: #2d9574;">"/go/:myParam"</span>, {
+            template: <span style="color: #2d9574;">"Welcome to page: {{page}}"</span>,
+            controller: <span style="color: #2d9574;">'GoController'</span>
+        })
+        <span style="color: #2aa1ae; background-color: #ecf3ec;">// </span><span style="color: #2aa1ae; background-color: #ecf3ec;">[4f] When gibberish is appended to the URL, go to &#8220;/hello&#8221;</span>
+        .otherwise({
+            redirectTo: <span style="color: #2d9574;">'/hello'</span>
+        })})
+<span style="color: #2aa1ae; background-color: #ecf3ec;">// </span><span style="color: #2aa1ae; background-color: #ecf3ec;">[5]</span>
+myApp.controller(<span style="color: #2d9574;">'NewEventController'</span>, <span style="color: #3a81c3; font-weight: bold;">function</span>(<span style="color: #715ab1;">$scope</span>){  <span style="color: #2aa1ae; background-color: #ecf3ec;">// </span><span style="color: #2aa1ae; background-color: #ecf3ec;">[4c]</span>
+    $scope.message = <span style="color: #2d9574;">"Hola!"</span> })
+myApp.controller(<span style="color: #2d9574;">'GreetingController'</span>, <span style="color: #3a81c3; font-weight: bold;">function</span>(<span style="color: #715ab1;">$scope</span>, <span style="color: #715ab1;">$route</span>){ <span style="color: #2aa1ae; background-color: #ecf3ec;">// </span><span style="color: #2aa1ae; background-color: #ecf3ec;">[4d]</span>
+    $scope.person = $route.current.myfriend })
+myApp.controller(<span style="color: #2d9574;">'GoController'</span>, <span style="color: #3a81c3; font-weight: bold;">function</span>(<span style="color: #715ab1;">$scope</span>, <span style="color: #715ab1;">$routeParams</span>){ <span style="color: #2aa1ae; background-color: #ecf3ec;">// </span><span style="color: #2aa1ae; background-color: #ecf3ec;">[4e]</span>
+    $scope.page = $routeParams.myParam })
+</pre>
+</div>
+
+<p>
+<a href="https://stackoverflow.com/questions/16251420/couldnt-load-template-using-templateurl-in-angularjs/16251614#16251614"><i>Things may not work!</i></a> Open up the console in your browser &#x2014;F12&#x2014; and you may
+see an <a href="https://developer.mozilla.org/pl/docs/XMLHttpRequest">XMLHttpRequest</a> (XHR) error; XHR requests is how AngularJS loads templates
+via an HTTP server.  One solution is to run your own <a href="https://stackoverflow.com/questions/16333790/node-js-quick-file-server-static-files-over-http/16350826#16350826">web server</a>:
+</p>
+<ol class="org-ol">
+<li><code>npm install http-server -g</code></li>
+<li><code>cd ⟨my-folder⟩</code></li>
+<li><code>http-server</code></li>
+<li>Then open <a href="http://localhost:8080/index.html">http://localhost:8080/index.html</a></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-Reads" class="outline-2">
+<h2 id="Reads"><span class="section-number-2">8</span> Reads</h2>
+<div class="outline-text-2" id="text-Reads">
+<p>
+The first two links below each contain lots of small, digestible, tutorials on
+AngularJS with numerous screenshots.
+</p>
+
+<ul class="org-ul">
+<li><a href="https://www.guru99.com/angularjs-tutorial.html">guru99.com ;; AngularJS Tutorial for Beginners: Learn AngularJS Step by Step</a></li>
+
+<li><a href="https://www.wikitechy.com/angularjs/my-first-application-in-angularjs">wikitechy.com ;; My First Application In AngularJS</a></li>
+
+<li><a href="https://www.w3schools.com/angular/">w3schools ;; AngularJS Tutorial</a></li>
+
+<li><a href="https://www.youtube.com/watch?v=TRrL5j3MIvo">Youtube ;; Introduction to Angular.js in 50 Examples</a></li>
+
+<li><a href="https://www.freecodecamp.org/news/simplified-explanation-to-mvc-5d307796df30/">What is MVC, and how is it like a sandwich shop?</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: <a href="https://alhassy.github.io/">Musa Al-hassy</a></p>
+<p class="date">Created: 2021-02-28 Sun 07:45</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
