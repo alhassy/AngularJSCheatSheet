@@ -931,7 +931,7 @@ Press ~C-c C-c~ on the following incantation to produce a single column portrait
      or as a [[file:CheatSheet_Portrait.pdf][single column portrait]],
      while below is an unruly html rendition
      ---there is also a
-     badge:beautiful|HTML_webpage||https://alhassy.github.io/AngularJSCheatSheet (•̀ᴗ•́)و
+     badge:beautiful|HTML_webpage|success|https://alhassy.github.io/AngularJSCheatSheet|javascript (•̀ᴗ•́)و
 
      # Markdown links: [title](target)
 

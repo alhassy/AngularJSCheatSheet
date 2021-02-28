@@ -7,7 +7,7 @@ A reference for the accessible JS framework that gives HTML: {{Variables}}, Cond
  or as a [single column portrait](CheatSheet_Portrait.pdf),
  while below is an unruly html rendition
  &#x2014;there is also a
- <a href="https://alhassy.github.io/AngularJSCheatSheet"><img src="https://img.shields.io/badge/beautiful-HTML_webpage-?logo=nil"></a> (•̀ᴗ•́)و
+ <a href="https://alhassy.github.io/AngularJSCheatSheet"><img src="https://img.shields.io/badge/beautiful-HTML_webpage-success?logo=javascript"></a> (•̀ᴗ•́)و
 
 This reference sheet is built from a
 [CheatSheets with Org-mode](https://github.com/alhassy/CheatSheet)
