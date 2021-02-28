@@ -1,0 +1,1208 @@
+* Header                                                             :ignore:
+  :PROPERTIES:
+  :CUSTOM_ID: Header
+  :END:
+#+TITLE: AngularJS CheatSheet
+# +SUBTITLE: ---Reference Sheet for “What I'm Currently Learning”---
+#+MACRO: blurb A reference for the accessible JS framework that gives HTML: {{Variables}}, Conditionals, Loops, etc!
+#+AUTHOR: [[https://alhassy.github.io/][Musa Al-hassy]]
+#+EMAIL: alhassy@gmail.com
+# +TODO: Todo | spacing LaTeX
+#+INCLUDE: ~/CheatSheet/CheatSheetSetup.org
+# +OPTIONS: broken-links:auto toc:nil
+# let's always break newlines, with a ‘↪’ indicated new lines.
+#+LaTeX: \setminted[html]{fontsize=\footnotesize, breaklines}
+
+* Hello World
+  :PROPERTIES:
+  :CUSTOM_ID: Hello-World
+  :END:
+
+# AngularJS is a JavaScript framework that operates on the client side and is used
+# to develop web applications.  Web development is one of the most preferred and
+# cost-effective ways to create distributed applications.  The deployment done
+# once on one machine can be made accessible to all the users on the world wide
+# web.
+
+  AngularJS enhances HTML by giving it a /dynamic/ layer; i.e., raw HTML just
+  displays things, but with AngularJS we can have parts shown according to, say,
+  input boxes and variables (which raw HTML does not have).
+  [See the [[https://alhassy.github.io/JavaScriptCheatSheet/CheatSheet.pdf][JavaScriptCheatSheet]] PDF.]
+
+  # jQuery is a more verbose alternative.
+
+  /An example is worth a thousand words!/
+  Here's one from the [[https://angularjs.org/][docs]]:
+  #+begin_src html :tangle learning/index.html
+<!doctype html>
+<html ng-app> <!-- ⟨0⟩ AngularJS is active for the entire tree -->
+  <head>
+    <!-- ⟨1⟩ Actually load AngularJS -->
+    <script
+src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js">
+    </script>
+  </head>
+  <body>
+    <div>
+      <label>Name:</label>
+      <!-- ⟨2⟩ The *value* of this text box is named “yourName” -->
+      <input type="text"
+             ng-model="yourName"
+             placeholder="Enter a name here">
+      <hr>
+      <!-- ⟨3⟩ Actually use the “yourName” value here,
+           ,*whenever* it is updated! -->
+      <h1>Hello {{yourName.toUpperCase()}}!</h1>
+    </div>
+  </body>
+</html>
+  #+end_src
+
+This is a /self-contained/ *interactive* program: Whenever the input box's value is
+changed then so is the greeting header “hello ...!”.
+
+Bindings like ~{{this}}~ are known as /[[https://github.com/janl/mustache.js#templates][mustache]] tags, which tell AngularJS that it
+should evaluate an [[https://docs.angularjs.org/guide/expression][expression]]/ and insert the result into the DOM in place of
+the binding. Rather than a one-time insert, a binding will result in efficient
+continuous updates whenever the result of the expression evaluation changes.
+
+/Exercise!/ Using ~<input type="number" ...>~, make a super simple site with two
+input boxes for numbers and a header that shows their sum whenever a user inputs
+values.  [[https://www.guru99.com/angularjs-directive.html#4][(Solution)]]
+# Notice that input boxes for numbers have /step/ arrows.
+:Solution:
+  #+begin_src html :tangle learning/sum.html
+<!doctype html>
+<html ng-app> <!-- ⟨0⟩ AngularJS is active for the entire tree -->
+  <head>
+    <!-- ⟨1⟩ Actually load AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  </head>
+  <body>
+    <div>
+      <label>First:</label>
+      <!-- ⟨2⟩ The *value* of this text box is named “yourName” -->
+      <input type="number" ng-model="first" placeholder="Enter a number here">
+      <label>Second:</label>
+      <!-- ⟨2⟩ The *value* of this text box is named “yourName” -->
+      <input type="number" ng-model="second" placeholder="Enter a number here">
+      <hr>
+      <!-- ⟨3⟩ Actually use the “yourName” value here, *whenever* it is updated! -->
+      <h1>sum =  {{first + second}}</h1>
+    </div>
+  </body>
+</html>
+  #+end_src
+:End:
+
+/Exercise!/ Get a twitter handle from the user and show a link to that twitter
+page.
+# 𝒳  ↦  twitter.com/𝒳.
+
+# /*Going forward,*/ we will omit lines 1-7 and lines 16-17.
+# They are required, but we do not want to waste space repeating them.
+
+/Warning!/ “AngularJS” (controllers and ~$scope~) has been completely rewritten as
+[[https://angular-templates.io/tutorials/about/learn-angular-from-scratch-step-by-step#building-an-angular-crud-example-project-step-by-step][“Angular”]] (components focused) in an effort to simplify it.
+
+#+latex: \columnbreak
+
+* COMMENT newpage :ignore:
+  :PROPERTIES:
+  :CUSTOM_ID: COMMENT-newpage
+  :END:
+
+#+latex: \columnbreak
+
+* [[https://www.guru99.com/angularjs-expressions.html][AngularJS makes HTML into a language with variables and control flow]]
+  :PROPERTIES:
+  :CUSTOM_ID: AngularJS-makes-HTML-into-a-language-with-variables-and-looping
+  :END:
+
+# In essence, AngularJS is a language itself.
+# It /extends/ HTML while continuing to support JS.
+
+AngularJS enhances HTML with variables, filters (explained below), arrays, JSON
+Objects, and looping & conditional control flow ---using JS's usual ~&&, ||, ==,~
+etc for Booleans.  Later we'll see that functions can be defined in an
+associated /controller,/ then used in the /view/.
+# As with HTML+JS, functions can be defined
+# within src_html[:exports code]{<script>} tags.
+
+# +latex: {\color{white} hello}
+
+#+latex: \vspace{-2em}
+#+begin_src html :tangle learning/vars.html
+<html ng-app>
+  <head>
+    <script
+src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js">
+    </script>
+  </head>
+  <body>
+    <!-- VARIABLES ------------------------------------------------------->
+    <div ng-init="firstname = 'Jason'; lastname = 'Jasim'">
+      {{ firstname + ' ' + lastname }} <br> <!-- Jason Jasim -->
+      <!-- Let's declare a var, but hide the resulting value from view-->
+      <p hidden>  {{  middlename = 'J.'  }}  </p>
+      <!-- Show the full name: Jason J. Jasim -->
+      {{ firstname + ' ' + middlename + ' ' + lastname }} <br>
+
+      <!-- APPLICATION: Keeping count ------------------------------------>
+      <button ng-init='count = 0' ng-click='count = count + 1'>
+        Increment
+      </button>
+      <p> Count: {{count}} </p>
+
+      <!-- FILTERS ------------------------------------------------------->
+      {{ firstname + ' ' + lastname  |  uppercase }}<br> <!--JASON JASIM-->
+      Price : {{ 21 | currency }} <br> <!-- Price : $21.00 -->
+      Pi: {{3.14159265358979323846 | number:2 }} <br> <!-- Pi: 3.14 -->
+
+      <!-- ARRAYS -------------------------------------------------------->
+      <!-- ["hi","indeed"] -->
+      {{ ["hello", "hi", "indeed", "bye"] | filter: 'i' }} <br>
+      <!-- Sort alphabetically -->
+      {{ ["hello", "hi", "indeed", "bye"] | orderBy: '' }} <br>
+
+      <!-- JSON OBJECTS -------------------------------------------------->
+      <!-- Lets make an array of objects ... -->
+      {{ people = [ {name: 'kathy', age: 32},
+                    {name: 'bob', age: 12},
+                    {name: 'jasim', age: 114}
+                  ] }}
+      <!-- ... and sort according to a field. -->
+      {{ people | orderBy: 'age' }}
+
+      <!-- APPLICATION: Search box --------------------------------------->
+      <br> Search: <input ng-model="query" />
+      <br> Results: {{ people | filter: query }}
+
+      <!-- LOOPING ------------------------------------------------------->
+      <!-- No more hardcoded lists! -->
+      <!-- ng-repeat creates a <li> element for each element in the list,
+           using the <li> tag as the template. -->
+      <ul>
+        <li ng-repeat="p in people | orderBy:'age'">
+          {{p.name + ' is ' + p.age + ' years old!' | uppercase }}
+        </li>
+      </ul>
+
+      <!-- CONDITIONALS -------------------------------------------------->
+      <!-- Name this inputs box's value ‘age’ -->
+      <input type="number" ng-model="age">
+      <!-- “Hello” is shown whenever the above ‘age’ input is truthy. -->
+      <p type="text" ng-if="age"> Hello! <p>
+      <!-- This input box shows only if the above, ‘age’, has value 12. -->
+      <input type="text" ng-if="age == 12" placeholder="Your name?">
+
+    </div>
+  </body>
+</html>
+#+end_src
+
+# file:///Users/weever/Desktop/learning/vars.html
+
+
+src_html[:exports code]{<!-- VARIABLES -->} To run some code when an element is
+clicked, we use src_emacs-lisp[:exports code]{ng-click}.  In our case, we have a
+variable whose value increases with each user click.
+
+src_html[:exports code]{<!-- LOOPING -->}
+We are using the HTML tags of src_emacs-lisp[:exports code]{<ul>} (Unordered
+List) and src_emacs-lisp[:exports code]{<li>} (List Item) to display the list of
+items in our array.
+
+src_html[:exports code]{<!-- CONDITIONALS -->}
+When the condition to src_emacs-lisp[:exports code]{ng-if} is falsy, the HTML
+element is removed from the DOM; otherwise it's added to the DOM.
+
+Note that arbitrary JS expressions will not be evaluated in moustaches; for
+that, we give the div in a ‘controller’ (below) which attaches a method to the
+src_emacs-lisp[:exports code]{$scope}, and in that method we do our arbitrary JS
+and that method is the one we /can/ call in moustaches (within our div).  See [[https://docs.angularjs.org/guide/expression#:~:text=AngularJS%20expressions%20are%20JavaScript%2Dlike,1%2B2][here]]
+for the docs on the permissible expressions.
+
+Moreover, AngularJS provides HTML directives that “already exist” but /know how
+evaluate {{moustache}} expressions/; e.g., src_C[:exports code]{<a
+href="#!/go/{{expr}}">Go!</a>} would /not/ evaluate src_emacs-lisp[:exports
+code]{expr}, for that we use src_emacs-lisp[:exports code]{ng-href}.
+
+#+latex: \vspace{1em}
+#+begin_center
+/Bindings can come from intricate JS code!/ See “MVC” below.
+#+end_center
+#+latex: \vspace{-0.5em}
+
+* [[https://www.guru99.com/angularjs-filter.html][Filters]]
+  :PROPERTIES:
+  :CUSTOM_ID: Filters
+  :END:
+
+# *Filters* are exclusive to AngularJS and are not present in the traditional JavaScript.
+
+/Filters/ change a value's presentation; e.g., the src_emacs-lisp[:exports
+code]{currency} filter displays a number with a “$” symbol and the right number
+of decimal places, whereas the src_emacs-lisp[:exports code]{filter} filter
+returns a subset of an array.  Other filters include src_emacs-lisp[:exports
+code]{uppercase} and src_emacs-lisp[:exports code]{lowercase} for formatting
+strings, and src_emacs-lisp[:exports code]{orderBy} to sort arrays,
+src_emacs-lisp[:exports code]{json} to show a JS object literally ---useful for
+debugging--- and src_emacs-lisp[:exports code]{limitTo} which slices an array;
+e.g., src_html[:exports code]{arr | limitTo:2:0} gets the subarray of 2 elements
+starting at index 0; finally, src_emacs-lisp[:exports code]{number:N} rounds a
+number to $N$ decimal places.
+
+As seen above, filters can be used in both {{expressions}} (using the pipe, ‘|’,
+operator) and <directives>.  We can also define our own filters:
+#+begin_src html :tangle learning/filters_custom.html
+<html ng-app="myApp">
+  <head>
+    <script
+src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js">
+    </script>
+  </head>
+  <body>
+    {{ "hello" | DemoFilter}} <!-- hello woah! -->
+    <script> // NEW
+      angular.module("myApp", [])
+       .filter('DemoFilter', function() {
+           return function(input) {
+             // The actual custom filter code goes here
+             return input + " woah!"
+      }})
+    </script>
+  </body>
+</html>
+#+end_src
+# file:~/Desktop/learning/filters_custom.html
+
+* Apps
+  :PROPERTIES:
+  :CUSTOM_ID: Apps
+  :END:
+
+  We may have multiple AngularJS apps for the same HTML file, and each app is
+  declared with the syntax src_emacs-lisp[:exports code]{var app =
+  angular.module(appName,dependencies);}.  One then furnishes each
+  src_emacs-lisp[:exports code]{app} with its own controllers, filters,
+  directives, etc ---e.g., src_js[:exports code]{app.filter(..., ...)}  as shown
+  above.
+
+* Directives ---Essentially “HTML Functions”
+  :PROPERTIES:
+  :CUSTOM_ID: Directives
+  :END:
+
+The HTML tags starting with src_emacs-lisp[:exports code]{ng-} are AngularJS
+/directives/. They operate on HTML elements; e.g., from the first section above,
+the src_emacs-lisp[:exports code]{ng-model} directive binds a name to the value
+(text) of an HTML element (such an input box); whereas the
+src_emacs-lisp[:exports code]{ng-repeat} directive repeats an HTML element.
+
+#+latex: \vspace{-.5em}
++ A page can be associated with multiple AngularJS apps, and
+  src_emacs-lisp[:exports code]{ng-app} indicates where each app starts.
+
++ src_emacs-lisp[:exports code]{ng-init} defines variables and their
+  corresponding values (in the view itself), as shown above, ---but this is
+  usually done in a /controller/ (later).
+
+#+latex: \vspace{-.5em}
+We can also define our own [[https://www.guru99.com/angularjs-custom-directive.html][custom directives]]: Below, our custom
+src_emacs-lisp[:exports code]{ng-speak} directive injects a src_html[:exports
+code]{<strong>} tag and prepends the text given to src_emacs-lisp[:exports
+code]{ng-speak}.
+
+#+latex: \vspace{-1em}
+#+begin_src html :tangle learning/directives_custom.html
+<html ng-app="myApp">
+  <head>
+    <script
+src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js">
+    </script>
+  </head>
+  <body>
+    <!-- This becomes:   <strong> Hello, my friends! </strong>  -->
+    <div ng-speak> my friends </div>
+    <!-- This becomes:  Sorted ... ["a","m","s","u"] -->
+    <ng-woah></ng-woah>
+
+    <script>
+      var myApp = angular.module("myApp", [])
+
+      myApp.directive('ngSpeak', function() {
+           return {
+             // Get the HTML within the directive call
+             transclude: true,
+             // Replace the div with this HTML template,
+             // using the div contents.
+             template: `<strong>
+                          Hello, <ng-transclude></ng-transclude>!
+                        </strong>`
+      }})
+
+      myApp.directive('ngWoah', function() {
+           return {
+             template: `Sorted ... {{letters | orderBy: ''}}`,
+             controller: function ($scope) {
+                $scope.letters = "musa".split('') }
+      }})
+    </script>
+  </body>
+</html>
+#+end_src
+# file:~/Desktop/learning/directives_custom.html
+
+*AngularJS Custom Directives Naming:* The /definition/ of directives uses ~camelCase~
+(as in src_emacs-lisp[:exports code]{ngSpeak}), whereas the actual /use/ of a
+directive is done with ~kebab-case~ (as in src_emacs-lisp[:exports
+code]{ng-speak}). Moreover, custom directive names must start with
+src_emacs-lisp[:exports code]{ng}.
+
+# *Convention:* Model names are in ~camelCase~ whereas view names are in ~kebab-case~;
+# e.g., an HTML attribute ~my-awesome-thing~ is named ~myAwesomeThing~ in the model.
+
+Notice that there are two ways to use a directive: Both of src_html[:exports
+code]{<div ng-speak> ... </div>} and src_html[:exports code]{<ng-speak>
+... </ng-speak>} tell AngularJS to instantiate a custom directive; i.e., to
+expand its template which is managed by an instance of the specified controller.
+
+The src_emacs-lisp[:exports code]{template} may ~{{evaluate}}~ any data defined in
+the parent scope; e.g., if our div occurs in the scope of a controller.
+There are several attributes that can be used during a new directive creation;
+here are a few:
+
++ src_emacs-lisp[:exports code]{template}: An inline string (HTML) template.
++ src_emacs-lisp[:exports code]{templateUrl}: An (longer) HTML template inside a
+  separate file.
++ src_emacs-lisp[:exports code]{transclude}: Place the child elements of
+  the directive as within the template.
++ src_emacs-lisp[:exports code]{controller}: Furnish the directive with bindings
+  from JS code.
+  - We /attached the src_emacs-lisp[:exports code]{letters} binding to the scope/
+    using AngularJS's “dependency injection”: We get the scope of the current tag
+    via the special ‘service’ src_emacs-lisp[:exports code]{$scope}.
+  - More on this below, in “MVC”.
+
+  Importantly, the src_emacs-lisp[:exports code]{template} contains the
+  presentation logic and uses bindings, whereas the src_emacs-lisp[:exports
+  code]{controller} provides the /context/ in which the bindings are evaluated.
+
+# The *template* (the part of the view containing the bindings and presentation
+# logic) acts as a blueprint for how our data should be organized and presented
+# to the user. The *controller* provides the context in which the bindings are
+# evaluated and applies behavior and logic to our template.
+
+# Directives admit reuse; e.g., we could have a directive for obtaining user data:
+# Name, age, address.  Then reuse the directive instead of 3 input boxes.
+
+/Directives allow us to reuse functionality!/ Similar parts of our HTML code are
+abstracted out into src_emacs-lisp[:exports code]{template}s and their bindings
+(i.e., the pieces, values, in which the HTML parts differ) are abstracted out
+into src_emacs-lisp[:exports code]{controller}s.
++ We just invoke the directive to get the new feature.
++ This means that any alteration to the directive definition, such as the
+  template, propagates to all use sites; no copy-pasting needed.
++ The main view (index.html) becomes more declarative, cleaner.
+
+[[https://docs.angularjs.org/tutorial/step_03][Components]] are a [[https://docs.angularjs.org/guide/component][‘saner’]] form of directives that aim to narrow scope.
+# The scope, that glues our controller and template together into a dynamic
+# view, is not isolated from other parts of the page. What this means is that a
+# random, unrelated change in a different part of the page (e.g. a property-name
+# conflict) could have unexpected and hard-to-debug side effects on our view.
+#
+# AngularJS will create a so called isolate scope for each instance of our
+# component, which means no prototypal inheritance and no risk of our component
+# affecting other parts of the application or vice versa.
+#
+# To create a component, we use the .component() method of an AngularJS module. We
+# must provide the name of the component and the Component Definition Object (CDO
+# for short).
+#
+# In its simplest form, the CDO will just contain a template and a controller. (We
+# can actually omit the controller and AngularJS will create a dummy controller
+# for us. This is useful for simple "presentational" components, that don't attach
+# any behavior to the template.)
+
+* The MVC Design Pattern ---Model, View, Controller
+  :PROPERTIES:
+  :CUSTOM_ID: MVC
+  :END:
+
+*Instead of declaring variables and their values /within/ the view, we can do so
+in a controller /for/ the model.*
+
+:Diagram:
+Here's the “circle”:
+
+Controller [JS function]
+--> (updates the model) -->
+Model [$scope object]
+<--> (Two way data binding) <-->
+View (DOM element)
+--> ($scope function call based on user interaction)
+Controller
+
+Initially, ((View calls the controller by user action)).
+
+/Two way data binding/ means that both sides are automatically monitored and when
+one of them is updated, then so is the other.
+:End:
+
+The /MVC/ design pattern describes a separation of concerns by splitting an
+application into 3 parts:
+| /Model/      |   | The application data, state: Variables and functions |
+| /View/       |   | The presentation of the data: HTML, templates, CSS   |
+| /Controller/ |   | The brains/logic that connects the above two.        |
+
+Tersely put, MVC is the CRUD operations & state, the GUI, and the code to
+connect the two ---e.g., changes in one are propagated to the other.
+
+MVC splits a program into the (“backend, knowledge”) data, the (“frontend,
+visual”) presentation, and the logic layers.  That is, /the view is a projection
+of the model through the HTML template, as directed by the controller./
+
+# In AngularJS, the *view* is a projection of the model through the HTML *template.*
+# This means that whenever the model changes, AngularJS refreshes the appropriate
+# binding points, which updates the view.
+
+# E.g., HTML /models/ text, and it can be /viewed/ nicely using CSS, and a browser /controls/ how the CSS is applied to the HTML.
+
+E.g., in a restaurant, the kitchen with its ingredients and chefs is the model,
+the menu and dinning table is the view, and the waiter is the controller.
+
+# Sometimes the 3 roles are played by the same object; e.g., a scroll bar.
+
+/Two-way binding/: When we specify which control is associated to which part of a
+view, AngularJS automatically keeps the two layers in sync.  As such, the
+/controller/ consumes user data from the view, uses model utilities to process the
+data, then displays new data to the user via the view.
+
+The special src_emacs-lisp[:exports code]{$scope} ‘service’ is used to expose
+the model to the view ---the controller's job is to populate the scope with
+behaviour. That is, the view can execute any computation, and access any data,
+that is bound to src_emacs-lisp[:exports code]{$scope} ---as such, an app
+generally has multiple controllers, each for a particular part of the view.
+
+# In the view, we use {{mustaches}} to access the behaviour defined in the
+# controller ---which makes use of data in the model.
+
+# Member variable added to scope object ;-)
+
+** /How do we split up an app?/
+   :PROPERTIES:
+   :CUSTOM_ID: How-do-we-split-up-an-app
+   :END:
+
+#+latex: \vspace{0.4em}
+   | /*How do we split up an app?*/ |
+
+By way of example, the following code...
+#+begin_src html :tangle learning/mvc1.html
+<!doctype html>
+<html ng-app>
+  <head>
+    <script
+src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js">
+    </script>
+  </head>
+  <body ng-init="prompt = 'What is your name?'">
+    <input type=text ng-model="userName" placeholder="{{prompt}}">
+    <div ng-if="userName"> "Why hello there, " {{userName}} </div>
+  </body>
+</html>
+#+end_src
+# file:~/Desktop/learning/mvc1.html
+
+Can be split up using a /controller/...
+(We also change from ~userName~ to an object ~user~ with a field ~name~)
+#+begin_src html :tangle learning/mvc2.html
+<!doctype html>
+<html ng-app="myGreetingApp"> <!-- NEW -->
+  <head>
+    <script
+src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js">
+    </script>
+  </head>
+  <body ng-controller="PromptController"> <!-- NEW -->
+    <input type=text ng-model="user.name" placeholder="{{prompt}}">
+    <div ng-if="user.name"> {{greet(user)}} </div>
+    <script> // NEW
+      angular.module("myGreetingApp", [])
+       .controller("PromptController",
+         function($scope){
+           // One-time setup for prompt
+           $scope.prompt = "What is your name?"
+           // Whenever the user changes, this function is called.
+           $scope.greet = function(user){
+             return  "Why hello there, " + user.name
+      }})
+    </script>
+  </body>
+</html>
+#+end_src
+# file:~/Desktop/learning/mvc2.html
+
+( The line src_html[:exports code]{<body ng-controller="PromptController">} lets
+everything in the src_emacs-lisp[:exports code]{body} tag have access to the
+functionality of the src_emacs-lisp[:exports code]{PromptController} (which is
+just a JS function).  Notice that our controller /defines/ src_emacs-lisp[:exports
+code]{prompt} and src_emacs-lisp[:exports code]{greet} for use in the view
+---/using/ the value of the input box, which is declared in the view with
+src_emacs-lisp[:exports code]{ng-model="user.name"}; conversely, we can update
+the ~user.name~ /input box/'s value using the controller: ~$scope.user.name =
+"hola"~. )
+
+# Which can then be
+The above is a bit messy, and so we split it up further into two files: The
+src_emacs-lisp[:exports code]{mvc_frontend.html} file focus on presentation only...
+#+begin_src html :tangle learning/mvc_frontend.html
+<!doctype html>
+<html ng-app="myGreetingApp">
+  <head>
+    <script
+src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js">
+    </script>
+    <script src="mvc_backend.js"></script> <!-- NEW -->
+  </head>
+  <body ng-controller="PromptController">
+    <input type=text ng-model="user.name" placeholder="{{prompt}}">
+    <div ng-if="user.name"> {{greet(user)}} </div>
+  </body>
+</html>
+#+end_src
+#+latex: \columnbreak
+...and the src_emacs-lisp[:exports code]{mvc_backend.js} file, which has the bindings,...
+#+begin_src js :tangle learning/mvc_backend.js
+// Model
+var app = angular.module("myGreetingApp", [])
+function greet(user) { return  "Why hello there, " + user.name }
+
+// Controllers
+app.controller("PromptController",
+      function($scope){
+        $scope.prompt = "What is your name?"
+        $scope.greet  = greet
+     })
+#+end_src
+
+# file:~/Desktop/learning/mvc_frontend.html
+
+It may be useful to know that within a controller, src_emacs-lisp[:exports
+code]{$eval} acts like ~{{...}}~; e.g., instead of src_emacs-lisp[:exports
+code]{$scope.a + $scope.b} we may write src_emacs-lisp[:exports
+code]{$scope.$eval('a + b')}.
+
+** Number Guessing Game
+   :PROPERTIES:
+   :CUSTOM_ID: Number-Guessing-Game
+   :END:
+
+#+latex: \vspace{0.4em}
+   | */Number Guessing Game/* |
+
+ Exercise: Using src_emacs-lisp[:exports code]{ng-init}, src_emacs-lisp[:exports
+ code]{ng-click}, controllers, and other directives, build a “number guessing game”; the user
+ makes a guess in an input box, sees whether the guess is too high or low or
+ correct, and has a “new game” button.
+ Finally, give the user an “I give up” button which shows the answer
+ ---hint, use src_emacs-lisp[:exports code]{ng-if}.
+
+ Hint: This can be done in under 40 lines, in a single file.
+
+ #+begin_src html :tangle learning/guess.html :exports none
+<!doctype html>
+<html ng-app="myGuessingApp">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"> </script>
+  </head>
+  <body ng-controller="PromptController">
+    <button ng-click="newGame()" ng-init="newGame()"> New game </button>
+    <input type=number ng-model="user.guess" placeholder="{{prompt}}">
+    <button ng-init='quit = false' ng-click='quit = !quit'> Quit </button>
+    <div ng-if='quit'> The target number is {{goal}} </div>
+    <div ng-if="user.guess"> {{reply(user)}} </div>
+    <script>
+      angular.module("myGuessingApp", [])
+       .controller("PromptController",
+         function($scope){
+           $scope.prompt = "Guess a number (0..100)"
+           // New goal and clear user guesses
+           $scope.newGame = function (){
+             $scope.goal = Math.floor(Math.random()*100)
+             $scope.user.guess = '' }
+           // Reply to user guesses
+           $scope.reply = function(user){
+             if (user.guess < $scope.goal)
+                return  "Too low!";
+             if (user.guess > $scope.goal)
+                return  "Too high!";
+             if (user.guess == $scope.goal)
+                return  "You got it!";
+      }})
+    </script>
+  </body>
+</html>
+ #+end_src
+ # file:~/Desktop/learning/guess.html
+
+* Single Page Applications (SPA) and src_emacs-lisp[:exports code]{$route}
+  :PROPERTIES:
+  :CUSTOM_ID: Single-Page-Applications-SPA-and-src-emacs-lisp-exports-code-route
+  :END:
+
+SPA's give the feeling that the entire application is in a single webpage: When
+the user requests something, /part of the webpage/ changes rather than loading an
+entirely new webpage. Example SPA's include Gmail and Netflix.
+
+:more:
+
+In the previous step, we saw how a controller and a template worked together to convert a static HTML page into a dynamic view. This is a very common pattern in Single-Page Applications in general (and AngularJS applications in particular):
+
+Instead of creating a static HTML page on the server, the client-side code
+"takes over" and interacts dynamically with the view, updating it instantly to
+reflect changes in model data or state, usually as a result of user interaction.
+:end:
+
+That is, instead of having a webpage for each aspect of your app, we have a
+single webpage and /multiple/ views ---one of which is shown to the user depending
+on what they want--- each with its own controller (since each view has its own
+goals).
+
+SPA's can be created as follows ---and exemplified in the code below.
+
+1. Add src_emacs-lisp[:exports code]{angular-route} as a script reference /after/
+   the AngularJS script.
+
+   Routing is used to present different views to the user on the same web page:
+   The src_emacs-lisp[:exports code]{$route} service watches the URL, and
+   whenever it changes, a route definition is looked up (i.e., view +
+   controller).
+
+   src_js[:exports code]{// [1b]} In the app declaration (the JS file), we need
+   to add a dependency on the src_emacs-lisp[:exports code]{ngRoute} module.
+
+2. Add src_emacs-lisp[:exports code]{href} tags which will represent links to
+   the different parts of the application.
+
+3. Add the src_emacs-lisp[:exports code]{ng-view} directive within the
+   application; it's used to inject the various views.
+
+   Whenever the route (the URL in your browser's address bar) changes, we load
+   the associated HTML template view at the location of the
+   src_emacs-lisp[:exports code]{ng-view} directive.
+
+4. Define routes through src_emacs-lisp[:exports code]{$routeProvider}.
+
+   src_js[:exports code]{// [4a]} Whenever the user clicks on the href tag ~home~,
+   from step 2, we place the HTML src_html[:exports code]{About <em>Us</em>}
+   into the place of the src_emacs-lisp[:exports code]{ng-view} tag.
+
+   src_js[:exports code]{// [4b]} Whenever the user clicks on the href tag ~"hello"~,
+   from step 2, we place the contents of =hello.html= into the place of the
+   src_emacs-lisp[:exports code]{ng-view} tag.
+
+   src_js[:exports code]{// [4c]} Whenever the user clicks on the href tag
+   ~newevent~, the ~newevent.html~ template is inserted in-place of the
+   src_emacs-lisp[:exports code]{ng-view} tag /and/ this view is given the
+   src_emacs-lisp[:exports code]{NewEventController} controller to manage its
+   state and logic.
+
+   src_js[:exports code]{// [4d]} This route definition has a custom key-value
+   pair defined in the route, which is then accessed in step 5 from the
+   src_emacs-lisp[:exports code]{$route} service and attached to the
+   src_emacs-lisp[:exports code]{$scope} for use in the template.
+
+   src_js[:exports code]{// [4e]} Parameters can be passed to the route via the
+   URL; e.g., ~index.html#!/go/1~ and ~index.html#!/go/23~ are two routes with the
+   parameter being 1 and 23.  The controller service src_emacs-lisp[:exports
+   code]{$routeParams} then access the parameters.  (Note: ~index.html#!/go/~ is
+   the route ~go~ with an empty parameter; it is different from ~index.html#!/go~,
+   which has no parameters and so is either supported in its own route
+   definition or redirects to the default route.)
+
+   src_js[:exports code]{// [4f]} Whenever the URL has a route not accounted for
+   ---such as when the page opens up, or the user changes the URL to
+   gibberish---, then we redirect them to a default route.  When not provided,
+   unconsidered routes redirect to the landing page; i.e., src_js[:exports
+   code]{redirectTo: '/'}.
+
+5. Add controllers to the application.
+
+   Just as the controller src_emacs-lisp[:exports code]{$scope} service passes
+   information from the model to the view , the src_emacs-lisp[:exports
+   code]{$route} service accesses properties of the route.
+
+   Note that we could reuse the controller among multiple views, or, more
+   likely, each view could have its own controller.
+
+6. Create the different web pages for the application
+
+   In our example below, we use the following templates:
+
+#+begin_parallel
+_hello.html_
+#+begin_src html :tangle learning/hello.html
+Hello!
+#+end_src
+#+columnbreak:
+_newevent.html_
+#+begin_src html :tangle learning/newevent.html
+Wanna add a new event, eh?
+{{message}}
+#+end_src
+#+end_parallel
+
+#+latex: \vspace{1ex}
+
+** The Code :ignore:
+   :PROPERTIES:
+   :CUSTOM_ID: The-Code
+   :END:
+
+. . . . . . . . . . . . . . . . . . . . . . .
+src_emacs-lisp[:exports code]{index.html}
+. . . . . . . . . . . . . . . . . . . . . . .
+# file:~/Desktop/learning/spa.html
+#+begin_src html :tangle learning/spa.html
+<html ng-app = "myApp">
+  <head>
+    <script
+src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js">
+    </script>
+    <script
+src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js">
+    </script>  <!-- [1] -->
+    <script src="script.js"></script>
+  </head>
+  <body>
+    This text appears alongside every view <hr>
+    <!-- [2] -->
+    <a href="#!/hello">Hello</a><br>
+    <a href="#!/home">Home</a><br>
+    <a href="#!/newevent">Add new event</a><br>
+    <a href="#!/greet">Welcome</a><br>
+    <input type="number" ng-model="it" placeholder="0">
+    <a ng-href="#!/go/{{it}}">Go!</a>
+    <!-- [3] -->
+    <br><div ng-view></div><hr>
+    Likewise, this text appears alongside every view
+  </body>
+</html>
+#+end_src
+
+#+latex: \vspace{-1ex}
+. . . . . . . . . . . . . . . . . . . . . . .
+src_emacs-lisp[:exports code]{script.js}
+. . . . . . . . . . . . . . . . . . . . . . .
+
+#+latex: \vspace{-1ex}
+#+begin_src js :tangle learning/script.js
+var myApp = angular
+            .module("myApp",["ngRoute"]) // [1b]
+
+myApp.config(function($routeProvider){ // [4]
+    $routeProvider
+        // [4a] Inline HTML template
+        .when("/home",{
+            template:"About <em>Us</em>"
+        })
+        // [4b] HTML template in another file
+        .when("/hello", {
+            templateUrl: "hello.html"
+        })
+        // [4c] HTML template that has {{expressions}}
+        .when("/newevent", {
+            templateUrl: "newevent.html",
+            controller: 'NewEventController'
+        })
+        // [4d] HTML /inline/ template that has {{expressions}}
+        // and has a key-value pair declared in the route definition.
+        .when("/greet", {
+            myfriend: "Jasim",
+            template: "Hello, {{person}}!",
+            controller: 'GreetingController'
+        })
+         // [4e] A template with a parameter “myParam”;
+         // which the controller decides to bind it to “page”.
+        .when("/go/:myParam", {
+            template: "Welcome to page: {{page}}",
+            controller: 'GoController'
+        })
+        // [4f] When gibberish is appended to the URL, go to “/hello”
+        .otherwise({
+            redirectTo: '/hello'
+        })})
+// [5]
+myApp.controller('NewEventController', function($scope){  // [4c]
+    $scope.message = "Hola!" })
+myApp.controller('GreetingController', function($scope, $route){ // [4d]
+    $scope.person = $route.current.myfriend })
+myApp.controller('GoController', function($scope, $routeParams){ // [4e]
+    $scope.page = $routeParams.myParam })
+#+end_src
+
+# The “.controller”'s cannot be chained like the “.when”!
+
+#+latex: \vspace{1em}
+
+[[https://stackoverflow.com/questions/16251420/couldnt-load-template-using-templateurl-in-angularjs/16251614#16251614][/Things may not work!/]] Open up the console in your browser ---F12--- and you may
+see an [[https://developer.mozilla.org/pl/docs/XMLHttpRequest][XMLHttpRequest]] (XHR) error; XHR requests is how AngularJS loads templates
+via an HTTP server.  One solution is to run your own [[https://stackoverflow.com/questions/16333790/node-js-quick-file-server-static-files-over-http/16350826#16350826][web server]]:
+1. ~npm install http-server -g~
+2. ~cd ⟨my-folder⟩~
+3. ~http-server~
+4. Then open http://localhost:8080/index.html
+* columnbreak :ignore:
+  :PROPERTIES:
+  :CUSTOM_ID: columnbreak
+  :END:
+#+latex: \columnbreak
+* Reads
+  :PROPERTIES:
+  :CUSTOM_ID: Reads
+  :END:
+
+  The first two links below each contain lots of small, digestible, tutorials on
+  AngularJS with numerous screenshots.
+
++ [[https://www.guru99.com/angularjs-tutorial.html][guru99.com ;; AngularJS Tutorial for Beginners: Learn AngularJS Step by Step]]
+
++ [[https://www.wikitechy.com/angularjs/my-first-application-in-angularjs][wikitechy.com ;; My First Application In AngularJS]]
+
++ [[https://www.w3schools.com/angular/][w3schools ;; AngularJS Tutorial]]
+
+  # Lots of small, digestible, tutorials that can be tried out live.
+
++ [[https://www.youtube.com/watch?v=TRrL5j3MIvo][Youtube ;; Introduction to Angular.js in 50 Examples]]
+
++ [[https://www.freecodecamp.org/news/simplified-explanation-to-mvc-5d307796df30/][What is MVC, and how is it like a sandwich shop?]]
+
+  # Explains model view controller architecture using a sandwich shop analogy
+* COMMENT What if I want ~N~ columns? Or non-landscape? Or multiple formats?
+  :PROPERTIES:
+  :CUSTOM_ID: COMMENT-What-if-I-want-N-columns-Or-non-landscape-Or-multiple-formats
+  :END:
+
+Press ~C-c C-c~ on the following incantation to produce a single column portrait of the cheat sheet.
+#+name: make-portrait
+#+BEGIN_SRC emacs-lisp :results none
+(with-temp-buffer
+    (insert
+    "#+EXPORT_FILE_NAME: CheatSheet_Portrait.pdf
+     ,#+LATEX_HEADER_EXTRA: \\landscapefalse \\def\\cheatsheetcols{1}
+     ,#+INCLUDE: CheatSheet.org
+    ")
+
+    (let ((org-export-use-babel nil))
+      (org-mode)
+      (org-latex-export-to-pdf)
+      )
+)
+#+END_SRC
+* COMMENT Making ~README.org~
+  :PROPERTIES:
+  :CUSTOM_ID: COMMENT-Making-README-org
+  :END:
+
+  Evaluate the following source block with ~C-c C-c~
+  to produce a ~README~ file.
+
+  # :'( For some reason using {{{title}}} below would not work.
+
+#+NAME: make-readme
+#+BEGIN_SRC emacs-lisp
+(with-temp-buffer
+    (insert
+    "#+EXPORT_FILE_NAME: README.org
+     # HTML: <h1> AngularJSCheatSheet </h1>
+     ,#+OPTIONS: toc:nil d:nil
+     # Toc is displayed below at a strategic position.
+
+     {{{blurb}}}
+
+    ,*The listing sheet, as PDF, can be found
+     [[file:CheatSheet.pdf][here]]*,
+     or as a [[file:CheatSheet_Portrait.pdf][single column portrait]],
+     while below is an unruly html rendition.
+
+     # Markdown links: [title](target)
+
+     This reference sheet is built from a
+     [[https://github.com/alhassy/CheatSheet][CheatSheets with Org-mode]]
+     system.
+
+     ,#+TOC: headlines 2
+     ,#+INCLUDE: CheatSheet.org
+    ")
+
+    ;; No code execution on export
+    ;; ⟪ For a particular block, we use “:eval never-export” ⟫
+    ;;
+    (let ((org-export-use-babel nil))
+      (org-mode)
+      ; (org-md-export-to-markdown)
+      ; (package-install 'toc-org)
+      (toc-org-mode)
+      (toc-org-insert-toc)
+      ; (setq org-toc-noexport-regexp ".*:ignore:.*") MA: Doesn't work.
+      ; (delete "TOC" org-export-exclude-tags)
+      (pop org-export-exclude-tags)
+      (org-org-export-to-org)
+      (add-to-list 'org-export-exclude-tags "TOC")
+      )
+)
+#+END_SRC
+
+Note that the ~blurb~ macro is defined by the user, to provide a terse description of the project.
+   - Think the one-line statement at the top of a github repo page.
+
+#    The ~d:nil~ ensures the ‘drawer’ ~:Hide: ⋯ :End:~ is not exported; it's there for me
+#    as a reminder.
+* COMMENT More
+  :PROPERTIES:
+  :CUSTOM_ID: COMMENT-More
+  :END:
+** PhoneApp
+   :PROPERTIES:
+   :CUSTOM_ID: PhoneApp
+   :END:
+
+ Currently at: https://docs.angularjs.org/tutorial/step_07
+
+ --------------------------------------------------------------------------------
+
+*** Adding a “search” box
+    :PROPERTIES:
+    :CUSTOM_ID: Adding-a-search-box
+    :END:
+
+
+ *TODO: Had we used a templateURL instead of a template, then the only thing that
+ changed from the previous section is the template!*
+
+   #+begin_src html :tangle learning/index4.html
+<!doctype html>
+<html ng-app="phonecatApp"> <!-- [0⟩ AngularJS is active for the entire tree -->
+  <head>
+    <!-- [1⟩ Actually load AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="app4.js"></script>
+  </head>
+  <body>
+
+
+  <!-- Use a custom component to render a list of phones -->
+  <phone-list></phone-list>  <!-- This tells AngularJS to instantiate a `phoneList` component here. -->
+
+  </body>
+</html>
+   #+end_src
+ #+begin_src js :tangle learning/app4.js
+// Define the `phonecatApp` module
+var phonecatApp = angular.module('phonecatApp', []);
+
+// Define the `PhoneListController` controller on the `phonecatApp` module
+phonecatApp.component('phoneList', {  // This name is what AngularJS uses to match to the `<phone-list>` element.
+    template: `
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <!--Sidebar content-->
+
+      Search: <input ng-model="$ctrl.query" />
+
+    </div>
+    <div class="col-md-10">
+      <!--Body content-->
+
+      <table class="phones">
+        <tr>
+          <th>Letter</th>
+          <th>ASCII Code</th>
+        </tr>
+          <tr ng-repeat="letter in $ctrl.letters | filter:$ctrl.query">
+            <td> {{letter}} </td>
+            <td> {{letter.charCodeAt(0)}} </td>
+          </tr>
+      </table>
+
+    </div>
+  </div>
+</div>
+      `,
+    controller: function PhoneListController() {
+        this.letters = "musa".split("");
+    }
+  });
+   #+end_src
+
+ We added a standard HTML <input> tag and used AngularJS's [[https://docs.angularjs.org/api/ng/filter/filter][filter]] function to
+ process the input for the ngRepeat directive.
+
+ By virtue of the ngModel directive, this lets a user enter search criteria and immediately see the effects of their search on the phone list. This new code demonstrates the following:
+
+ + Data-binding: This is one of the core features in AngularJS. When the page
+   loads, AngularJS binds the value of the input box to the data model variable
+   specified with ngModel and keeps the two in sync.
+
+   In this code, the data that a user types into the input box (bound to
+   ~$ctrl.query~) is immediately available as a filter input in the list repeater
+   (phone in $ctrl.phones | filter:$ctrl.query). When changes to the data model
+   cause the repeater's input to change, the repeater efficiently updates the DOM
+   to reflect the current state of the model.
+
+ + Use of the filter filter: The filter function uses the $ctrl.query value to
+   create a new array that contains only those records that match the query.
+
+   ngRepeat automatically updates the view in response to the changing number of
+   phones returned by the filter filter. The process is completely transparent to
+   the developer.
+
+   We could also use [[https://docs.angularjs.org/tutorial/step_06][orderBy]] ;-)
+** Why Use AngularJS?
+   :PROPERTIES:
+   :CUSTOM_ID: Why-Use-AngularJS
+   :END:
+
+  - Data Binding: The platform provides automatic sync of data between the model and view contents and as a result, it saves your time as well as the effort to a great extent.
+  - Controller: These are JavaScript that is bound to a particular scope.
+  - Services: AngularJS has many built-in services. E.g $https
+  - MVC: Stands for Model, View, and Controller. It is a design pattern and is used for the division of an app into different parts, i.e., Model, View, and Controller.
+  - Deep Linking: This feature of the app framework helps you to encode the state of the application in the URL for bookmarking. Later, the app can also be restored from the URL in the same state.
+  - Scope: These are the objects that act as a glue between the controller and the view.
+
+
+ The Template (View)
+ The Scope (Model)
+ The Controller (Controller)
+
+ To set up an Angular App we must follow certain steps as mentioned below:
+ 1. angular.module will be created at first.
+ 2. A controller will be assigned to the module.
+ 3. The module will be linked with the HTML template(i.e. UI or View) with an angular app(ng-app).
+ 4. The HTML template will be linked with the controller(i.e JS) with an
+ ng-controller directive.
+
+ two-way binding is used to bind the data from the model to view and vice
+ versa(i.e view to model) by automatically updating the HTML template without
+ writing any custom code.
+
+ One-way binding is used to bind the data from the model to view without updating the HTML template or view automatically.
+
+ Thus, in order to update the HTML template, we need to write a custom code that
+ will update the view every time whenever a data is binded from model to view.
+
+ How can we show that a scope variable should have one-time binding only?
+
+ Answer: To show one-time binding we have to use “::” in front of the scope.
+
+ AngularJS supports both one way and two-way binding.
+
+ In one way binding if we change the data model, then there will be no dynamic
+ change that you will see in view but in two way binding, there will be a dynamic
+ change whenever a change will be made in the data model.
+
+ https://www.softwaretestinghelp.com/wp-content/qa/uploads/2018/10/Data-bindings-in-AngularJS.jpg
+
+** How are AngularJS prefixes $ and $$ used?
+   :PROPERTIES:
+   :CUSTOM_ID: COMMENT-How-are-AngularJS-prefixes-and-used
+   :END:
+
+ Answer: $$ variable in AngularJS is used as a private variable, as it is used to prevent accidental code collision with the user code.
+
+ Whereas, $ prefix can be used to denote angular core functionalities (like a variable, parameter, property or method).
+** Difference between ng-bind and ng-model directive.
+   :PROPERTIES:
+   :CUSTOM_ID: COMMENT-Difference-between-ng-bind-and-ng-model-directive
+   :END:
+
+ Answer: ng-bind directive has one-way data bindings, data flows only from object
+ to UI, not vice versa (i.e. $scope>>view) and ng-model directive has two-way
+ data bindings, data flows between UI to object and vice versa(i.e. $scope>>view
+ and view>>$scope).
+** Udemy
+   :PROPERTIES:
+   :CUSTOM_ID: Udemy
+   :END:
+
+   1. The *model* is the variables, records, etc that /we write in code/, the *view* is
+      the buttons, images, etc that the /user sees (in their HTML browser)/.
+
+      In AngularJS, the two are crucially connected by ~$scope~ (or ~$ctrl~).  On the
+      view side we add new things to the scope with, say, ~$scope.newVariable =
+      12~; whereas on the model side we use the attribute ~ng-model="newVariable"~
+      on a tag so that the /value/ of the tag's body is saved in ~newVariable~.
+
+   2. *Namespacing via JS Objects:*
+
+      Instead of declaring variables and functions (in the default global
+      namespace),
+      it may be best to declare an empty object then
+      add variables and functions there; e.g.,
+      #+begin_src js
+var ns = {} // An object which we'll use as a NameSpace
+ns.my_var = 3
+ns.my_func = function () { return 3; }
+      #+end_src
+
+   3. A *controller* decides how part of the view is handled by the model.  In
+      AngularJS, this means a ~div~ has a controller attribute that refers to a
+      ~function~ in the model.
+
+   4. *Dependency injection* is the idea to /abstract out/ part of a function
+      as an /argument/. That's it. Big word for simple idea.
+
+      https://www.guru99.com/angularjs-dependency-injection.html
+
+      https://www.tutorialspoint.com/angularjs/angularjs_dependency_injection.htm
+
+   5. String MetaProgramming: In JS, if ~f~ is a function then ~f.toString()~ is
+      a string representation of ~f~'s definition; i.e., the text typed to define ~f~.
+
+      E.g., ~angular.injector().annotate(f)~ will return an array of the string
+      names of the arguments to ~f~ ---as they appear in the definition of ~f~.
+
+      AngularJS uses this approach to look at argument names and injects
+      dependencies (i.e., places certain objects) there; e.g., an argument named
+      ~$scope~ will be given an object representing the scope of a particular
+      controlled part of the view. Likewise for numerous other /services/.
+
+      Names starting with ‘$’ are recognised as /services/.
+
+      In particular, argument order in controller/AngularJS functions does not matter.
+
+   6. The ~$log~ service enhances ~console.log~ by presenting its argument in a
+      semantically meaningful fashion.
+
+      - ~$log.log(s)~ :: Show ~s~ in the console log, as usual.
+      - ~$log.info(s)~ :: Show ~s~ in the console with in an /info/ icon beside it.
+      - ~$log.debug(s)~ :: Show ~s~ is blue
+      - ~$log.error(s)~ :: Show ~s~ in red alongside an /error/ icon.
+
+   7. The ~$filter~ service is known as /map/ or /select/ in other languages:
+      ~$filter('f')(x)~ applies the function ~f~ to each part of ~x~.
+
+   8. *Minification* is the shrinking of size of files for faster download; e.g.,
+      by removing whitespace and using one-letter variable names.
+
+   9. A *directive* is an instruction to AngularJS to manipulate a piece of the DOM.
+
+** TODO Karma / Protactor /Selenium Unit Testing
+   :PROPERTIES:
+   :CUSTOM_ID: COMMENT-Karma-Protactor-Selenium-Unit-Testing
+   :END:
+
+ https://www.guru99.com/angularjs-testing-unit.html
+
+ https://www.guru99.com/protractor-testing.html
+
+ https://www.guru99.com/unit-testing-guide.html
+
+ https://www.guru99.com/integration-testing.html
+
+ https://www.guru99.com/software-testing.html
+
+ https://www.guru99.com/selenium-tutorial.html
